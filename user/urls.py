@@ -5,6 +5,8 @@ from .views import UserEditView
 
 
 
+#  hiiii
+
 urlpatterns = [
     path('',views.logInPage,name='loginPage'),
     path('logout/',views.logOutPage,name="logout"),

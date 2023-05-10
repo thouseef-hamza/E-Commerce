@@ -1,0 +1,44 @@
+{% extends 'mainbase.html' %}
+{% block title %}Account{% endblock title %}
+{% block content %}
+<table class="table table-bordered">
+        <form  method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            {% comment %} <div class="input-box">
+                <i class="fas fa-user"></i>
+                First Name{{form.first_name}}
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                Last Name{{form.last_name}}
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                Username:{{form.username}}
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                Email:{{form.email}}
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                Address:{{form.address}}
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                Phone Number{{form.phonenumber}}
+            </div>
+            <br/>
+            <br> {% endcomment %}
+            <div class="button input-box">
+                <input type="submit" value="Update Profile">
+            </div> 
+        </form>
+</table>
+
+
+{% endblock content %}
+
+
+

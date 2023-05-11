@@ -1,0 +1,28 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Log In{% endblock title %}
+{% block formtitle %}Log In{% endblock formtitle %}
+{% block content %}
+{% comment %} {% if user.is_authenticated and not user.is_superuser %}
+{% else %} {% endcomment %}
+<form  method="POST">
+  {% csrf_token %}            
+  <div class="input-boxes">
+    <div class="input-box">
+      <i class="fas fa-envelope"></i>
+      <input type="text" placeholder="Username" name="username" required>
+    </div>
+    <div class="input-box">
+      <i class="fas fa-lock"></i>
+      <input type="password" placeholder="Enter your password" name="password" required>
+    </div>
+    <div class="text"><a href="{% url 'forget_password' %}">Forgot password?</a></div>
+    <div class="button input-box">
+      <input type="submit" value="Submit">
+    </div>
+    <div class="text sign-up-text">Don't have an account?<a href="{% url 'signUpPage' %}"> <label>Sigup now</label></a></div>
+  </div>
+</form>
+{% comment %} {% endif %} {% endcomment %}
+{% endblock content %}
+
+

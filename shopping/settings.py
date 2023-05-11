@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'user',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shopping.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.Account'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

@@ -1,0 +1,39 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Sign Up{% endblock title %}
+{% block formtitle %}Sign Up{% endblock formtitle %}
+{% block content %}
+<form method='post'>
+  {% csrf_token %}
+  {% include 'includes/formerror.html' %}
+  <div class="input-boxes">
+    <div class="input-box">
+      <i class="fas fa-user"></i>
+      {{form.first_name}}
+    </div>
+    <div class="input-box">
+      <i class="fas fa-user"></i>
+      {{form.last_name}}
+    </div>
+    <div class="input-box">
+      <i class="fas fa-envelope"></i>
+      {{form.username}}
+    </div>
+    <div class="input-box">
+      <i class="fas fa-envelope"></i>
+      {{form.email}}
+    </div>
+    <div class="input-box">
+      <i class="fas fa-lock"></i>
+      {{form.password1}}
+    </div>
+    <div class="input-box">
+      <i class="fas fa-lock"></i>
+      {{form.password2}}
+    </div> 
+    <div class="button input-box">
+      <input type="submit" value="Submit">
+    </div>
+    <div class="text sign-up-text">Already have an account?<a href="{% url 'loginPage' %}"> <label>Login now</label></a></div>
+  </div>
+</form>
+{% endblock content %}

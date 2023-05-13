@@ -7,11 +7,12 @@
   font-family: "Poppins" , sans-serif;
 }
 body{
-  min-height: 100vh;
+  min-height: 100vh !important ;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #7d2ae8;
+  /* background: #b01ba5 ; */
+  background-image: url("assets/img/login-backImg.png");
   padding: 30px;
 }
 .container{
@@ -152,7 +153,7 @@ body{
 }
 .form-content .input-box i{
   position: absolute;
-  color: #7d2ae8;
+  color: #b01ba5;
   font-size: 17px;
 }
 .forms .form-content .text{

@@ -1,28 +1,58 @@
 {% extends 'accounts/base.html' %}
+{% load static %}
 {% block title %}Log In{% endblock title %}
-{% block formtitle %}Log In{% endblock formtitle %}
 {% block content %}
-{% comment %} {% if user.is_authenticated and not user.is_superuser %}
-{% else %} {% endcomment %}
-<form  method="POST">
-  {% csrf_token %}            
-  <div class="input-boxes">
-    <div class="input-box">
-      <i class="fas fa-envelope"></i>
-      <input type="text" placeholder="Username" name="username" required>
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert alert-info" role="alert" style="max-width: 380px; margin-top:100px;">
+Thank You For Registering With Us, We Have Sent You a Verification Email To Your Email Address {{ request.GET.email }} <br>Please Verify!
+<br><br> 
+Already Verified? <a href="{% url 'loginPage' %}">Login</a>
+</div>
+{% else %}
+<div class="container"> 
+  <div class="cover">
+     <div class="front">
+      <img src="{% static 'assets/img/frontImg.jpg' %}" alt="">
+      <div class="text">
+        <span class="text-1">Every new friend is a <br> new adventure</span>
+        <span class="text-2">Let's get connected</span>
+      </div>
     </div>
-    <div class="input-box">
-      <i class="fas fa-lock"></i>
-      <input type="password" placeholder="Enter your password" name="password" required>
+    <div class="back">
+      <img class="backImg" src="{% static 'assets/img/backImg.jpg' %}" alt="">
+      <div class="text">
+        <span class="text-1">Complete miles of journey <br> with one step</span>
+        <span class="text-2">Let's get started</span>
+      </div>
     </div>
-    <div class="text"><a href="{% url 'forget_password' %}">Forgot password?</a></div>
-    <div class="button input-box">
-      <input type="submit" value="Submit">
-    </div>
-    <div class="text sign-up-text">Don't have an account?<a href="{% url 'signUpPage' %}"> <label>Sigup now</label></a></div>
+  </div> 
+  <div class="forms">
+      {% include 'includes/alert.html' %}
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Login</div>
+          <form method="POST">
+            {% csrf_token %}            
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Enter Your Email" name="email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Enter your password" name="password" required>
+              </div>
+              <div class="text"><a href="{% url 'forgotPassword' %}">Forgot password?</a></div>
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              <div class="text sign-up-text">Don't have an account?<a href="{% url 'signUpPage' %}"> <label>Sigup now</label></a></div>
+            </div>
+          </form>
+    </div>      
   </div>
-</form>
-{% comment %} {% endif %} {% endcomment %}
+  </div>
+  </div>
+</div>
+{% endif %}
 {% endblock content %}
-
-

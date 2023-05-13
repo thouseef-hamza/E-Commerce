@@ -1,39 +1,67 @@
 {% extends 'accounts/base.html' %}
+{% load static %}
 {% block title %}Sign Up{% endblock title %}
-{% block formtitle %}Sign Up{% endblock formtitle %}
 {% block content %}
-<form method='post'>
-  {% csrf_token %}
-  {% include 'includes/formerror.html' %}
-  <div class="input-boxes">
-    <div class="input-box">
-      <i class="fas fa-user"></i>
-      {{form.first_name}}
+<div class="container"> 
+  <div class="cover">
+     <div class="front">
+      <img src="{% static 'assets/img/frontImg.jpg' %}" alt="">
+      <div class="text">
+        <span class="text-1">Every new friend is a <br> new adventure</span>
+        <span class="text-2">Let's get connected</span>
+      </div>
     </div>
-    <div class="input-box">
-      <i class="fas fa-user"></i>
-      {{form.last_name}}
+    <div class="back">
+      <img class="backImg" src="{% static 'assets/img/backImg.jpg' %}" alt="">
+      <div class="text">
+        <span class="text-1">Complete miles of journey <br> with one step</span>
+        <span class="text-2">Let's get started</span>
+      </div>
     </div>
-    <div class="input-box">
-      <i class="fas fa-envelope"></i>
-      {{form.username}}
-    </div>
-    <div class="input-box">
-      <i class="fas fa-envelope"></i>
-      {{form.email}}
-    </div>
-    <div class="input-box">
-      <i class="fas fa-lock"></i>
-      {{form.password1}}
-    </div>
-    <div class="input-box">
-      <i class="fas fa-lock"></i>
-      {{form.password2}}
-    </div> 
-    <div class="button input-box">
-      <input type="submit" value="Submit">
-    </div>
-    <div class="text sign-up-text">Already have an account?<a href="{% url 'loginPage' %}"> <label>Login now</label></a></div>
+  </div> 
+  <div class="forms">
+      {% include 'includes/alert.html' %}
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Login</div>
+          <form  method='post'>
+            {% csrf_token %}
+            {% include 'includes/formerror.html' %}
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                {{form.first_name}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                {{form.last_name}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                {{form.username}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                {{form.email}}
+              </div>
+              {% comment %} <small class="form-text text-muted">We'll never share your email with anyone else.</small> {% endcomment %}
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{form.password1}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{form.password2}}
+              </div> 
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              <div class="text sign-up-text">Already have an account?<a href="{% url 'loginPage' %}"> <label>Login now</label></a></div>
+            </div>
+          </form>
+    </div>      
   </div>
-</form>
+  </div>
+  </div>
+</div>
 {% endblock content %}

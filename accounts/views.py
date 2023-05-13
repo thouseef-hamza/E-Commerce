@@ -1,10 +1,21 @@
 from typing import Any, Optional
 from django.db import models
-from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login,logout
-from django.contrib import messages
-from .forms import SignUpForm,EditProfileForm
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages, auth
+from .forms import SignUpForm
+from .models import Account
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+# Email Verification
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
 
 
 # Create your views here.
@@ -13,76 +24,163 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 def logInPage(request):
     # if 'username' in request.session:
     #     return redirect('homePage')
-    # if request.method == 'POST':
-    #     username = request.POST['username']
-    #     password = request.POST['password']
-    #     user = authenticate(request,username=username,password=password)
-    #     print(user)
-    #     if user is not None:
-    #         request.session['username'] = username
-    #         # login(request,user)
-    #         print('Home Page Entering.........................................................')
-    #         messages.success(request,'You Have Been Logged In')
-    #         return redirect('homePage') 
-    #     else:
-    #         print('Log In Page Entering.................................................................')
-    #         messages.success(request,'There Was An Error Logging In, Please Try Again....')
-    #         return redirect('loginPage')
-    # else:
-    #     print('Not Worked...............................................................................')
-    #     return render(request,'accounts/login.html',{})
-    return render(request,'home.html')
+    if request.method == "POST":
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = auth.authenticate(email=email, password=password)
+        print(user)
+        if user is not None:
+            
+                auth.login(request, user)
+                print(
+                    "Home Page Entering........................................................."
+                )
+                messages.success(request, "You Have Been Logged In")
+                return redirect("homePage")
+        else:
+            print(
+                "Log In Page Entering................................................................."
+            )
+            messages.error(request, "Invalid Login Credentials")
+            return redirect("loginPage")
+    else:
+        print(
+            "Not Worked..............................................................................."
+        )
+        return render(request, "accounts/login.html", {})
 
 
 def signUpPage(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            #Authentication And Login
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username,password=password)
-            login(request,user)
-            messages.success(request,'You Have Been Successfully Registered')
-            print('success')
-            return redirect('loginPage') 
+            # Authentication And Login
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            print(email)
+            password = form.cleaned_data["password1"]
+            user = Account.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                email=email,
+                password=password,
+            )
+            user.save()
+
+            # USER ACTIVATION
+            current_site = get_current_site(request)
+            mail_subject = "Please Activate Your Account"
+            message = render_to_string(
+                "accounts/account_verification_email.html",
+                {
+                    "user": user,
+                    "domain": current_site,
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "token": default_token_generator.make_token(user),
+                },
+            )
+            to_email = email
+            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.send()
+            # login(request,user)
+            # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
+            print("success")
+            return redirect('/?command=verification&email='+email)
     else:
-        form = SignUpForm()    
-        print('failure')
-        return render(request,'accounts/signup.html',{'form':form})
-    print('nothing')
-    return render(request,'accounts/signup.html',{'form':form})
+        form = SignUpForm()
+        print("failure")
+        return render(request, "accounts/signup.html", {"form": form})
+    print("nothing")
+    return render(request, "accounts/signup.html", {"form": form})
 
-
-def homePage(request):
-   
-        return render(request,'home.html')
-        return redirect('loginPage')
-
-
+@login_required(login_url='loginPage')
 def logOutPage(request):
-    if 'username' in request.session: 
-        logout(request)
-        messages.success(request,'You Have Been Logged Out!!.................')
+        auth.logout(request)
+        messages.success(request, "You Have Been Logged Out!!.................")
+        return redirect("loginPage")
+    
+@login_required(login_url='loginPage')
+def homePage(request):
+    return render(request, "home.html")
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = Account._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
+        user = None
+    
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Congratulation! Your Account is Activated')
         return redirect('loginPage')
     else:
-        return redirect('homePage')
-
-def forget_password(request):
-    return render(request,'accounts/forget_password.html')
-
-# def edit_profile(request):
-#     form=ProfileForm(instance=request.user)
-#     return render(request,'accounts/edit_profile.html',{'form':form})
-
-# class UserEditView(generic.CreateView):
-#     form_class = Use
-
-# class UserEditView(generic.UpdateView):
-#     form_class =  EditProfileForm
-#     template_name = 'accounts/edit_profile.html'
-#     success_url = reverse_lazy('homePage')
+        messages.success(request, 'Invalid Activation Link')
+        return redirect('signUpPage')
     
-#     def get_object(self):
-#        return self.request.user 
+def forgotPassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        if Account.objects.filter(email=email).exists():
+            user = Account.objects.get(email__exact=email)
+            
+            # Reset Password Email
+            current_site = get_current_site(request)
+            mail_subject = "Please Activate Your Account"
+            message = render_to_string(
+                "accounts/reset_password_email.html",
+                {
+                    "user": user,
+                    "domain": current_site,
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "token": default_token_generator.make_token(user),
+                },
+            )
+            to_email = email
+            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.send()
+            
+            messages.success(request,'Password Reset has been Sent To Your Email')
+            return redirect('loginPage')
+        else:
+            messages.success(request,'Account Does not exist')
+            return redirect('forgotPassword')
+    return render(request,'accounts/forgotPassword.html')
+
+def resetPassword_validate(request,uidb64,token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = Account._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
+        user = None
+        
+    if user is not None and default_token_generator.check_token(user, token):
+        request.session['uid'] = uid
+        messages.success(request,'Please Reset Your Password')
+        return redirect('resetPassword')
+    else:
+        messages.error(request,'This Link Has Been Expired')
+        return redirect('loginPage')
+    
+def resetPassword(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        
+        if password == confirm_password:
+            uid = request.session.get('uid')
+            user = Account.objects.get(pk=uid)
+            user.set_password(password)
+            user.save()
+            messages.success(request,'Password Reset Successful')
+            return redirect('loginPage')
+        else:
+            messages.error(request,'Password Do Not Match')
+            return redirect('resetPassword')
+    else:
+        return render(request,'accounts/resetPassword.html')

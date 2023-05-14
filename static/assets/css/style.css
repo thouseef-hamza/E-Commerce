@@ -4,7 +4,7 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  color: #444444;
+  color: #212529;
 }
 
 a {
@@ -461,6 +461,7 @@ h6 {
 section {
   padding: 60px 0;
   overflow: hidden;
+  background-color: #212529;
 }
 
 .section-bg {

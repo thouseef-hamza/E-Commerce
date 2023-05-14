@@ -11,8 +11,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: #b01ba5 ; */
-  background-image: url("assets/img/login-backImg.png");
+  background: #b01ba5 ;
   padding: 30px;
 }
 .container{

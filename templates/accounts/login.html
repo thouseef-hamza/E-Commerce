@@ -1,7 +1,7 @@
 {% extends 'accounts/base.html' %}
-{% load static %}
 {% block title %}Log In{% endblock title %}
 {% block content %}
+{% load static %}
 {% if request.GET.command == 'verification' %}
 <div class="container mx-auto alert alert-info" role="alert" style="max-width: 380px; margin-top:100px;">
 Thank You For Registering With Us, We Have Sent You a Verification Email To Your Email Address {{ request.GET.email }} <br>Please Verify!
@@ -12,14 +12,15 @@ Already Verified? <a href="{% url 'loginPage' %}">Login</a>
 <div class="container"> 
   <div class="cover">
      <div class="front">
-      <img src="{% static 'assets/img/frontImg.jpg' %}" alt="">
+      <!-- {% comment %} <img src="{% static '/assets/img/backImg.jpg' %}" alt=""> {% endcomment %} -->
+      <img src="{% static '/assets/img/login-backImg.jpg' %}" alt="">
       <div class="text">
         <span class="text-1">Every new friend is a <br> new adventure</span>
         <span class="text-2">Let's get connected</span>
       </div>
     </div>
     <div class="back">
-      <img class="backImg" src="{% static 'assets/img/backImg.jpg' %}" alt="">
+      {% comment %} <img class="backImg" src="{% static 'assets/img/backImg.jpg' %}" alt=""> {% endcomment %}
       <div class="text">
         <span class="text-1">Complete miles of journey <br> with one step</span>
         <span class="text-2">Let's get started</span>

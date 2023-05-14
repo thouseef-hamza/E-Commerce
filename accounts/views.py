@@ -22,32 +22,19 @@ from django.core.mail import EmailMessage
 
 
 def logInPage(request):
-    # if 'username' in request.session:
-    #     return redirect('homePage')
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
         user = auth.authenticate(email=email, password=password)
         print(user)
         if user is not None:
-            
                 auth.login(request, user)
-                print(
-                    "Home Page Entering........................................................."
-                )
-                messages.success(request, "You Have Been Logged In")
                 return redirect("homePage")
         else:
-            print(
-                "Log In Page Entering................................................................."
-            )
             messages.error(request, "Invalid Login Credentials")
             return redirect("loginPage")
     else:
-        print(
-            "Not Worked..............................................................................."
-        )
-        return render(request, "accounts/login.html", {})
+        return render(request, "accounts/login.html")
 
 
 def signUpPage(request):

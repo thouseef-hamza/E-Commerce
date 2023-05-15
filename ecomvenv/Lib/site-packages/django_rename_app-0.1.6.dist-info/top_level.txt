@@ -1,0 +1,1 @@
+django_rename_app

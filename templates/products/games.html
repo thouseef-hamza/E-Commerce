@@ -1,0 +1,28 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block title %}Games{% endblock title %}Games
+{% block content %}
+{% comment %} <header class="border-bottom mb-4 pb-3" style="border-color:#A32CC4;">
+   <div class="form-inline">
+    <span class="mr-md-auto text-white">Found <b>{{ product_count }}</b> <small>items</small></span>
+   </div>
+
+</header> {% endcomment %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-6 col-md-4 col-lg-2 ">
+        <div class="card rounded" style="background-color:#1d1d1d;">
+            <img src="{{ product.images.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h6 class="card-title text-white"><b>{{ product.product_name }}</b></h6>
+              <p class="card-text text-white">&#8377; {{ product.price }}</p>
+              <a href="#" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+
+

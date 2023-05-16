@@ -8,12 +8,12 @@ body {
 }
 
 a {
-  color: #e43c5c;
+  color: #A32CC4;
   text-decoration: none;
 }
 
 a:hover {
-  color: #ea6981;
+  color: #A32CC4;
   text-decoration: none;
 }
 
@@ -36,7 +36,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #e43c5c;
+  background: #A32CC4;
   width: 40px;
   height: 40px;
   border-radius: 50px;
@@ -50,7 +50,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #e9607a;
+  background: #A32CC4;
   color: #fff;
 }
 
@@ -148,7 +148,7 @@ h6 {
   height: 2px;
   bottom: -6px;
   left: 0;
-  background-color: #e43c5c;
+  background-color: #A32CC4;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out 0s;
@@ -201,7 +201,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #e43c5c;
+  color: #A32CC4;
 }
 
 .navbar .dropdown:hover>ul {
@@ -306,7 +306,7 @@ h6 {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #e43c5c;
+  color: #A32CC4;
 }
 
 .navbar-mobile .getstarted,
@@ -341,7 +341,7 @@ h6 {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-  color: #e43c5c;
+  color: #A32CC4;
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
@@ -1903,7 +1903,7 @@ section {
 
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color: #ea6981;
+  color: #A32CC4;
   font-size: 18px;
   line-height: 1;
 }
@@ -1927,7 +1927,7 @@ section {
 
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #e43c5c;
+  color: #A32CC4;
 }
 
 #footer .footer-newsletter {
@@ -1949,7 +1949,7 @@ section {
   position: relative;
   border-radius: 50px;
   text-align: left;
-  border: 1px solid #f7c2cc;
+  border: 1px solid #A32CC4;
 }
 
 #footer .footer-newsletter form input[type=email] {
@@ -1967,7 +1967,7 @@ section {
   background: none;
   font-size: 15px;
   padding: 0 22px;
-  background: #e43c5c;
+  background: #A32CC4;
   color: #fff;
   transition: 0.3s;
   border-radius: 50px;
@@ -1975,7 +1975,7 @@ section {
 }
 
 #footer .footer-newsletter form input[type=submit]:hover {
-  background: #d01d3f;
+  background: #A32CC4;
 }
 
 #footer .credits {
@@ -1987,7 +1987,7 @@ section {
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #e43c5c;
+  background: #A32CC4;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -2000,7 +2000,7 @@ section {
 }
 
 #footer .social-links a:hover {
-  background: #d01d3f;
+  background: #A32CC4;
   color: #fff;
   text-decoration: none;
 }

@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from products.models import Product 
+from category.models import Category
 
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -94,7 +95,7 @@ def logOutPage(request):
 def homePage(request):
     products = Product.objects.all().filter(is_available=True)
     context = {
-        'products':products
+        'products':products,
     }
     return render(request, "home.html",context)
 

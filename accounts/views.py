@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from games.models import Product as Games
+from products.models import Product 
 
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -92,11 +92,11 @@ def logOutPage(request):
     
 @login_required(login_url='loginPage')
 def homePage(request):
-    games = Games.objects.all().filter(is_available=True)
-    context_games = {
-        'games':games
+    products = Product.objects.all().filter(is_available=True)
+    context = {
+        'products':products
     }
-    return render(request, "home.html",context_games)
+    return render(request, "home.html",context)
 
 
 def activate(request, uidb64, token):

@@ -76,12 +76,12 @@
         <h1 class="text-white">Games</h1>
       </div>
       <div style="display:flex;justify-content:space-evenly;"class="col-m-12 card-wrapper">
-        {% for game_product in games|slice:":3" %}
+        {% for product in products|slice:":3" %}
         <div class="card text-white" style="width: 18rem;background-color:#1d1d1d;">
-          <img src="{{ game_product.images.url }}" class="card-img-top" alt="...">
+          <img src="{{ product.images.url }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">{{ game_product.product_name }}</h5>
-            <p class="card-text">&#8377; {{ game_product.price }}</p>
+            <h5 class="card-title">{{ product.product_name }}</h5>
+            <p class="card-text">&#8377; {{ product.price }}</p>
             <a href="#" class="btn btn-primary">Add to Cart</a>
           </div>
         </div>

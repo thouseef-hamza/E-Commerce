@@ -1,6 +1,6 @@
 from typing import Any, Optional
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages, auth
 from .forms import SignUpForm
@@ -8,6 +8,8 @@ from .models import Account
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+
+from django.template.defaultfilters import slugify
 
 from products.models import Product 
 from category.models import Category
@@ -94,8 +96,11 @@ def logOutPage(request):
 @login_required(login_url='loginPage')
 def homePage(request):
     products = Product.objects.all().filter(is_available=True)
+    categories = Category.objects.get(slug='games')
+    print(categories)
     context = {
         'products':products,
+        'categories' : categories
     }
     return render(request, "home.html",context)
 

@@ -9,11 +9,10 @@
 
     <nav id="navbar" class="navbar">
       <ul>
-        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-        <li><a class="nav-link scrollto" href="#about">Games</a></li>
-        <li><a class="nav-link scrollto" href="#services">Consoles</a></li>
-        <li><a class="nav-link scrollto" href="#services">PC Components</a></li>
-        <li><a class="nav-link scrollto" href="#services">Accessories</a></li>
+        <li><a class="nav-link scrollto active" href="{% url 'homePage' %}">Home</a></li>
+        {% for category in links  %}
+        <li><a class="nav-link scrollto" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+        {% endfor %}
         <li><a class="nav-link scrollto " href="{% url 'logout' %}">Logout</a></li>
         <li><a class="nav-link scrollto" href="#team">Account</a></li>
         {% comment %} <li><a href="blog.html">Blog</a></li> {% endcomment %}

@@ -4,7 +4,7 @@ from category.models import Category
  
 # Create your views here.
 
-def games(request,category_slug=None):
+def products(request,category_slug=None):
     categories = None
     products = None
     
@@ -19,4 +19,4 @@ def games(request,category_slug=None):
         'products' : products,
         'product_count' : product_count,
     }
-    return render(request,'products/games.html',context)
+    return render(request,'products/products.html',context)

@@ -1,0 +1,85 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-lg-9">
+            <div style="border-radius:0px;" class="card"> 
+                <div class="table-responsive">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Product</th>
+                                <th scope="col" width="120">Quantity</th>
+                                <th scope="col" width="120">Price</th>
+                                <th scope="col" class="text-right d-none d-md-block" width="200"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <figure class="itemside align-items-center">
+                                        <div class="aside"><img src="{% static 'assets/img/hero-bg.jpg' %}" class="img-sm"></div>
+                                        <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Tshirt with round nect</a>
+                                            <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td> <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select> </td>
+                                <td>
+                                    <div class="price-wrap"> <var class="price">$10.00</var> <small class="text-muted"> $9.20 each </small> </div>
+                                </td>
+                                <td class="text-right d-none d-md-block"> <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"> <i class="fa fa-heart"></i><a href="" class="btn btn-light" data-abc="true"> Remove</a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </aside>
+        <aside class="col-lg-3">
+            {% comment %} <div class="card mb-3" style="border-radius:0px;">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group"> <label>Have coupon?</label>
+                            <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                        </div>
+                    </form>
+                </div>
+            </div> {% endcomment %}
+            <div class="card" style="border-radius:0px;">
+                <div class="card-body">
+                    <dl class="dlist-align">
+                        <dt>Total price:</dt>
+                        <dd class="text-right ml-3">$69.97</dd>
+                    </dl>
+                    <dl class="dlist-align">
+                        <dt>Discount:</dt>
+                        <dd class="text-right text-danger ml-3">- $10.00</dd>
+                    </dl>
+                    <hr/>
+                    <dl class="dlist-align">
+                        <dt>Total:</dt>
+                        <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+                    </dl>
+                    <div class="d-grid gap-2">
+                        {% comment %} <button class="btn me-md-2 text-white" type="button" style="border-radius:0px;background-color:#A32CC4">Continue Shopping</button> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <div class="col-lg-9">
+        <div class="card mt-3" style="border-radius:0px;">
+            <div class="card-body">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn me-md-2 text-white" type="button" style="border-radius:0px;background-color:#A32CC4">PLACE ORDER</button>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

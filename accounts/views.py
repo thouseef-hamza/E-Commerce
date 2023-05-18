@@ -60,7 +60,6 @@ def signUpPage(request):
                 password=password,
             )
             user.save()
-
             # USER ACTIVATION
             current_site = get_current_site(request)
             mail_subject = "Please Activate Your Account"
@@ -78,14 +77,12 @@ def signUpPage(request):
             send_email.send()
             # login(request,user)
             # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
-            print("success")
             return redirect('/?command=verification&email='+email)
     else:
         form = SignUpForm()
-        print("failure")
         return render(request, "accounts/signup.html", {"form": form})
-    print("nothing")
-    return render(request, "accounts/signup.html", {"form": form})
+    # print("nothing")
+    # return render(request, "accounts/signup.html", {"form": form})
 
 @login_required(login_url='loginPage')
 def logOutPage(request):

@@ -4,7 +4,7 @@ import re
 from django.views import generic
 from .models import Account
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(UserCreationForm): 
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-content','placeholder':'First Name'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-content','placeholder':'Last Name'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'forms-content','placeholder':'Username'}))

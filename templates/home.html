@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tempo Bootstrap Template - Index</title>
+  <title>Game Py</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -75,18 +75,22 @@
       <div class="section-title">
         <h1 class="text-white">Games</h1>
       </div>
-      <div style="display:flex;justify-content:space-evenly;"class="col-m-12 card-wrapper">
-        {% for product in products|slice:":3" %}
-        <div class="card text-white" style="width: 18rem;background-color:#1d1d1d;">
-          <img src="{{ product.images.url }}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ product.product_name }}</h5>
-            <p class="card-text">&#8377; {{ product.price }}</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
-          </div>
-        </div>
+      <div class="row ms-3 me-3">
+        {% for product in products|slice:":4" %}
+        <div class="col-6 col-md-3 mt-2">
+            <div class="card rounded" style="background-color:#1d1d1d;">
+              <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                  <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{ product.product_name }}</b></h5></a>
+                  <p class="card-text text-white">&#8377; {{ product.price }}</p>
+                  <a href="#" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
+                </div>
+            </div>
+        </div>  
         {% endfor %}
-      </div> 
+      </div>
+
+  </section><!-- End Hero -->
     </section><!-- End Games Section -->
 
     <!-- ======= Consoles Section ======= -->
@@ -94,7 +98,7 @@
       <div class="section-title">
         <h1 class="text-white">Consoles</h1>
       </div>
-      <div style="display:flex;justify-content:space-evenly;"class="col-m-12 card-wrapper">
+      <div style="display:flex;justify-content:space-evenly;"class="col-m-12 card-wrapper">==
         <div class="card text-white" style="width: 18rem;background-color:#1d1d1d;">
           <img src="{% static 'assets/img/login-backImg.jpg' %}" class="card-img-top" alt="...">
           <div class="card-body">

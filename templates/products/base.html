@@ -36,7 +36,7 @@
 <header style="position:sticky;" id="header" class="fixed-top bg-black">
     <div class="container d-flex align-items-center justify-content-between">
   
-      <h1 class="logo"><a href="index.html">Game Py</a></h1>
+      <h1 class="logo"><a href="{% url 'homePage' %}">Game Py</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="'assets/img/logo.png'" alt="" class="img-fluid"></a>-->
   
@@ -146,9 +146,8 @@
     </div>
     </form>
   </header><!-- End Header -->
-  
-  <section class="section-pagetop bg">
-    <div class="container ">
+  <section class="section-pagetop bg"> 
+    <div class="container">
       <h2 class="title-page text-white">{% block title %}{% endblock title %}</h2>
       {% block content %}
   

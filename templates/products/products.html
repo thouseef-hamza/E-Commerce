@@ -12,9 +12,9 @@
     {% for product in products %}
     <div class="col-6 col-md-4 col-lg-2 ">
         <div class="card rounded" style="background-color:#1d1d1d;">
-            <img src="{{ product.images.url }}" class="card-img-top" alt="...">
+          <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="..."></a>
             <div class="card-body">
-              <h6 class="card-title text-white"><b>{{ product.product_name }}</b></h6>
+              <a href="{{ product.get_url }}"><h6 class="card-title text-white"><b>{{ product.product_name }}</b></h6></a>
               <p class="card-text text-white">&#8377; {{ product.price }}</p>
               <a href="#" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
             </div>

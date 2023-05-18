@@ -1,0 +1,46 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block title %}Product Details{% endblock title %}
+{% block content %}    
+<div class="card mb-3" style="background-color:#1d1d1d;">
+    <div class="row g-0">
+      <div class="col-6">
+        <img src="{{ single_product.images.url }}" class="img-fluid" alt="...">
+      </div>
+      <div class="col-6">
+        <div class="card-body">
+          <h1 style="font-familt:arial-black" class="card-title text-white ms-4 mt-4">{{ single_product.product_name }}</h1>
+          <p class="card-text"><h3 class="text-white ms-4"><bold>&#8377; {{ single_product.price }}</bold></h3></p>
+          {% comment %} <h6>Description</h6> {% endcomment %}
+          <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>          
+          {% comment %} <a href="./product-detail.html" class="btn  btn-primary ms-4"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i></a> {% endcomment %}
+          {% if single_product.stock <= 0 %}
+            <h5 class="text-danger ms-4">Out Of Stock</h5>
+          {% else %}
+            <div class="d-grid gap-2 ms-4 me-4">
+              <button style="background-color:#A32CC4;" class="btn text-white" type="button">Add to Cart</button>
+              <button style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</button>
+            </div>
+          {% endif %}
+          <br/>
+        </div>
+      </div>
+    </div>
+    <header class="section-heading ms-5 mt-5">
+      <h3 class="card-text text-white">Customer Reviews </h3>  
+    </header>
+    <br/>
+      <article class="box mb-3 ms-5 me-5" style="border:1px solid #1d1d1d">
+          <div class="icontext w-100">
+              <img src="{% static 'assets/img/backImg.jpg' %}" class="img-xs icon rounded-circle" style="width:3rem;height:3rem;"> <h6 class="mb-1 text-primary mt-4" style="display:inline;">Mike John </h6><span class="date text-muted float-md-right">24.04.2020 </span>  
+          </div> <!-- icontext.// -->
+          <div class="mt-3 ">
+              <p class="card-text text-white">
+                  Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquipfghjjjjjjjjjjjjjjjjjjjjjjjjjj
+              </p>	
+          </div>
+      </article>
+</div>
+{% endblock content %}

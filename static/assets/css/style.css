@@ -2,13 +2,14 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 body {
   font-family: "Open Sans", sans-serif;
   color: #212529;
 }
 
 a {
-  color: #A32CC4;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -23,7 +24,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Nunito", sans-serif;
+  font-family: "Anton", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -141,7 +142,7 @@ h6 {
   margin-left: 5px;
 }
 
-.navbar>ul>li>a:before {
+.navbar>ul>li>a::after {
   content: "";
   position: absolute;
   width: 100%;

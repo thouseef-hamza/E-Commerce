@@ -18,10 +18,17 @@
           {% if single_product.stock <= 0 %}
             <h5 class="text-danger ms-4">Out Of Stock</h5>
           {% else %}
-            <div class="d-grid gap-2 ms-4 me-4">
-              <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white" type="button">Add to Cart</a>
-              <button style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</button>
-            </div>
+            {% if in_cart %}
+              <div class="d-grid gap-2 ms-4 me-4">
+              <a href="#"  class="btn text-white btn-success" type="button">Added to Cart &nbsp&nbsp <i class="fa fa-check"></i></a>
+              <a href="{% url 'cart' %}" style="background-color:#A32CC4;" class="btn text-white" type="button">View Cart &nbsp&nbsp <i class="fa fa-eye"></i></a>
+              </div>
+            {% else %}
+              <div class="d-grid gap-2 ms-4 me-4">
+                <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white" type="button">Add to Cart</a>
+                <button style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</button>
+              </div>
+            {% endif %}
           {% endif %}
           <br/>
         </div>

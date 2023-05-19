@@ -72,7 +72,7 @@
 
     <!--- ======= Games Section ======= -->
     <section id="about" class="about">
-      <div class="section-title">
+      <div class="section-title"> 
         <h1 class="text-white">Games</h1>
       </div>
       <div class="row ms-3 me-3">
@@ -83,7 +83,7 @@
                 <div class="card-body">
                   <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{ product.product_name }}</b></h5></a>
                   <p class="card-text text-white">&#8377; {{ product.price }}</p>
-                  <a href="#" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
+                  <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
                 </div>
             </div>
         </div>  
@@ -119,7 +119,7 @@
           <img src="{% static 'assets/img/login-backImg.jpg' %}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Last Of Us</h5>
-            <p class="card-text">&#8377 3299</p>
+            <p class="card-text">&#8377; 3299</p>
             <a href="#" class="btn btn-primary">Add to Cart</a>
           </div>
         </div>

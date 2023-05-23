@@ -2,6 +2,11 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block content %}
+{% if 'search' in request.path %}
+<!--Search Result-->
+{% else %}
+
+{% endif %}
 {% comment %} <header class="border-bottom mb-4 pb-3" style="border-color:#A32CC4;">
    <div class="form-inline">
     <span class="mr-md-auto text-white">Found <b>{{ product_count }}</b> <small>items</small></span>
@@ -9,6 +14,7 @@
 
 </header> {% endcomment %}
 <div class="row">
+    {% if products %}
     {% for product in products %}
     <div class="col-6 col-md-4 col-lg-2 ">
         <div class="card rounded" style="background-color:#1d1d1d;">
@@ -16,12 +22,42 @@
             <div class="card-body">
               <a href="{{ product.get_url }}"><h6 class="card-title text-white"><b>{{ product.product_name }}</b></h6></a>
               <p class="card-text text-white">&#8377; {{ product.price }}</p>
-              <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
+              {% comment %} <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a> {% endcomment %}
+              <a href="{{ product.get_url }}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">View Details</a>
             </div>
         </div>
     </div>
     {% endfor %}
+    {% else %}
+    <div class="d-flex justify-content-center mt-5 pt-5 mb-5 pb-5" >
+       <h2>No Result Found,Try Again</h2>
+    </div>  
+    {% endif %}
   </div>
+  <br>
+  <nav class="mt-4" aria-label="Page navigation sample">
+    {% if products.has_other_pages %}
+    <ul class="pagination">
+      {% if products.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+      {% else %}
+      <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+      {% endif %}
+      {% for i in products.paginator.page_range %}
+        {% if product.number == i %}
+          <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if products.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+      {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
 {% endblock content %}
 
 

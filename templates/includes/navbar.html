@@ -1,5 +1,4 @@
 <!-- ======= Header ======= -->
-
 <header id="header" class="fixed-top ">
   <div class="container d-flex align-items-center justify-content-between">
 
@@ -15,6 +14,10 @@
         {% endfor %}
         <li><a class="nav-link scrollto " href="{% url 'logout' %}">Logout</a></li>
         <li><a class="nav-link scrollto" href="#team">Account</a></li>
+        <a href="{% url 'cart' %}" class="widget-header">
+          <!--<div class="icon icon-lg rounded-circle border">--><i class="fa fa-shopping-cart"></i><li>&nbspCart</li><!--</div>-->
+          {% comment %} <span class="badge badge-pill badge-danger notify">0</span> {% endcomment %}
+        </a>  
         {% comment %} <li><a href="blog.html">Blog</a></li> {% endcomment %}
         {% comment %} <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a> {% endcomment %}
           {% comment %} <ul>

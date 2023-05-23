@@ -29,7 +29,6 @@
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
   
 </head>
-
 <body>
    {% include 'includes/navbar.html' %}
   <!-- ======= Hero Section ======= -->
@@ -83,7 +82,9 @@
                 <div class="card-body">
                   <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{ product.product_name }}</b></h5></a>
                   <p class="card-text text-white">&#8377; {{ product.price }}</p>
-                  <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
+                  {% comment %} <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a> {% endcomment %}
+                  <a href="{{ product.get_url }}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">View Details</a>
+                </div>
                 </div>
             </div>
         </div>  

@@ -3,13 +3,19 @@ from products.models import Product
 from .models import Cart,CartItem
 from django.shortcuts import HttpResponse,get_object_or_404
 from products.models import Product
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+
+
 def _cart_id(request):
     cart = request.session.session_key
     if not cart:
         cart = request.session.create()
     return cart
 
+@login_required(login_url='loginPage')
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)   #Getting The Product
     try:
@@ -51,9 +57,11 @@ def remove_cart_item(request,product_id):
     return redirect('cart')
     
     
-    
+@login_required(login_url='loginPage')
 def cart(request,total=0,quantity=0,cart_items=None):
     try:
+        tax = 0
+        grand_total=0
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart,is_active=True)
         for cart_item in cart_items:
@@ -61,7 +69,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
             quantity += cart_item.quantity
         tax = (18 * total)/100
         grand_total = total + tax
-    except ObjectNotExist:
+    except ObjectDoesNotExist:
         pass
     context = {
         'total' : total,
@@ -71,3 +79,6 @@ def cart(request,total=0,quantity=0,cart_items=None):
         'grand_total' : grand_total,
     }
     return render(request,'products/cart.html',context)
+
+def placeorder(request):
+    return render(request,'products/placeorder.html')

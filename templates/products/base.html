@@ -29,14 +29,11 @@
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
   
   <!-- Font Awesome CDN-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />"
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-  
 <header style="position:sticky;" id="header" class="fixed-top bg-black">
     <div class="container d-flex align-items-center justify-content-between">
-  
       <h1 class="logo"><a href="{% url 'homePage' %}">Game Py</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="'assets/img/logo.png'" alt="" class="img-fluid"></a>-->
@@ -49,19 +46,19 @@
           {% endfor %}
           <li><a class="nav-link scrollto " href="{% url 'logout' %}">Logout</a></li>
           <li><a class="nav-link scrollto" href="#team">Account</a></li>
-          {% comment %} <a href="./cart.html" class="widget-header">
-						<div class="icon icon-lg rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-						<span class="badge badge-pill badge-danger notify">0</span>
-					</a> {% endcomment %}
+          <a href="{% url 'cart' %}" class="widget-header">
+						<!--<div class="icon icon-lg rounded-circle border">--><i class="fa fa-shopping-cart"> </i><li>&nbspCart</li><!--</div>-->
+						{% comment %} <span class="badge badge-pill badge-danger notify">0</span> {% endcomment %}
+					</a>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
   
     </div>
 
-    <form class="d-flex">
-      <input class="form-control me-2 ms-4 mt-3" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn me-3 mt-3" type="submit" style="border-color:#A32CC4;color:#A32CC4;">Search</button>
+    <form class="d-flex search" action="{% url 'search' %}" method='GET'>
+        <input class="form-control me-2 ms-4 mt-3" type="search" placeholder="Search" aria-label="Search" name="keyword">
+        <button class="btn me-3 mt-3" type="submit" style="border-color:#A32CC4;color:#A32CC4;">Search</button>
       <br>
       <button class="btn me-5 mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" style="background-color:#A32CC4;color:white;">Filter</button>
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">

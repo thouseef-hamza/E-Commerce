@@ -93,18 +93,6 @@ def logOutPage(request):
         messages.success(request, "You Have Been Logged Out!!.................")
         return redirect("loginPage")
     
-@login_required(login_url='loginPage')
-def homePage(request):
-    products = Product.objects.all().filter(is_available=True)
-    categories = Category.objects.get(slug='games')
-    print(categories)
-    context = {
-        'products':products,
-        'categories' : categories
-    }
-    return render(request, "home.html",context)
-
-
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()

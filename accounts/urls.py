@@ -1,11 +1,9 @@
+# Django
 from django.urls import path
+
+# Local Django
 from . import views
-from django.contrib.auth import views as auth_views
-# from .views import UserEditView
 
-
-
-#  hiiii
 
 urlpatterns = [
     path('signup/',views.signUpPage,name='signUpPage'),

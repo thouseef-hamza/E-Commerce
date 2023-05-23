@@ -1,18 +1,11 @@
-from typing import Any, Optional
-from django.db import models
-from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+# Django
+from django.shortcuts import render, redirect
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
+
+# Local Django
 from .forms import SignUpForm
 from .models import Account
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-
-from django.template.defaultfilters import slugify
-
-from products.models import Product 
-from category.models import Category
 
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -33,8 +26,8 @@ def logInPage(request):
         user = auth.authenticate(email=email, password=password)
         print(user)
         if user is not None:
-                auth.login(request, user)
-                return redirect("homePage")
+            auth.login(request, user)
+            return redirect("homePage")
         else:
             messages.error(request, "Invalid Login Credentials")
             return redirect("loginPage")
@@ -79,7 +72,7 @@ def signUpPage(request):
             # login(request,user)
             # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
             print("success")
-            return redirect('/?command=verification&email='+email)
+            return redirect("/?command=verification&email=" + email)
     else:
         form = SignUpForm()
         print("failure")
@@ -87,34 +80,37 @@ def signUpPage(request):
     print("nothing")
     return render(request, "accounts/signup.html", {"form": form})
 
-@login_required(login_url='loginPage')
+
+@login_required(login_url="loginPage")
 def logOutPage(request):
-        auth.logout(request)
-        messages.success(request, "You Have Been Logged Out!!.................")
-        return redirect("loginPage")
-    
+    auth.logout(request)
+    # messages.success(request, "You Have Been Logged Out!!.................")
+    return redirect("homePage")
+
+
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = Account._default_manager.get(pk=uid)
     except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
         user = None
-    
+
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, 'Congratulation! Your Account is Activated')
-        return redirect('loginPage')
+        messages.success(request, "Congratulation! Your Account is Activated")
+        return redirect("loginPage")
     else:
-        messages.success(request, 'Invalid Activation Link')
-        return redirect('signUpPage')
-    
+        messages.success(request, "Invalid Activation Link")
+        return redirect("signUpPage")
+
+
 def forgotPassword(request):
-    if request.method == 'POST':
-        email = request.POST['email']
+    if request.method == "POST":
+        email = request.POST["email"]
         if Account.objects.filter(email=email).exists():
             user = Account.objects.get(email__exact=email)
-            
+
             # Reset Password Email
             current_site = get_current_site(request)
             mail_subject = "Please Activate Your Account"
@@ -130,43 +126,45 @@ def forgotPassword(request):
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
-            
-            messages.success(request,'Password Reset has been Sent To Your Email')
-            return redirect('loginPage')
-        else:
-            messages.success(request,'Account Does not exist')
-            return redirect('forgotPassword')
-    return render(request,'accounts/forgotPassword.html')
 
-def resetPassword_validate(request,uidb64,token):
+            messages.success(request, "Password Reset has been Sent To Your Email")
+            return redirect("loginPage")
+        else:
+            messages.success(request, "Account Does not exist")
+            return redirect("forgotPassword")
+    return render(request, "accounts/forgotPassword.html")
+
+
+def resetPassword_validate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = Account._default_manager.get(pk=uid)
     except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
         user = None
-        
+
     if user is not None and default_token_generator.check_token(user, token):
-        request.session['uid'] = uid
-        messages.success(request,'Please Reset Your Password')
-        return redirect('resetPassword')
+        request.session["uid"] = uid
+        messages.success(request, "Please Reset Your Password")
+        return redirect("resetPassword")
     else:
-        messages.error(request,'This Link Has Been Expired')
-        return redirect('loginPage')
-    
+        messages.error(request, "This Link Has Been Expired")
+        return redirect("loginPage")
+
+
 def resetPassword(request):
-    if request.method == 'POST':
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
-        
+    if request.method == "POST":
+        password = request.POST["password"]
+        confirm_password = request.POST["confirm_password"]
+
         if password == confirm_password:
-            uid = request.session.get('uid')
+            uid = request.session.get("uid")
             user = Account.objects.get(pk=uid)
             user.set_password(password)
             user.save()
-            messages.success(request,'Password Reset Successful')
-            return redirect('loginPage')
+            messages.success(request, "Password Reset Successful")
+            return redirect("loginPage")
         else:
-            messages.error(request,'Password Do Not Match')
-            return redirect('resetPassword')
+            messages.error(request, "Password Do Not Match")
+            return redirect("resetPassword")
     else:
-        return render(request,'accounts/resetPassword.html')
+        return render(request, "accounts/resetPassword.html")

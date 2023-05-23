@@ -7,7 +7,6 @@ from django.shortcuts import render
 def homePage(request):
     products = Product.objects.all().filter(is_available=True)
     categories = Category.objects.get(slug='games')
-    print(categories)
     context = {
         'products':products,
         'categories' : categories

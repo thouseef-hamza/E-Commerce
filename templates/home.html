@@ -31,15 +31,6 @@
 </head>
 <body>
    {% include 'includes/navbar.html' %}
-  <!-- ======= Hero Section ======= -->
-  {% comment %} <section id="hero">
-    <div class="hero-container">
-      {% comment %} <h3>Welcome to <strong>Tempo</strong></h3>
-      <h1>We're Creative Agency</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2> {% endcomment %}
-      {% comment %} <a href="#about" class="btn-get-started scrollto">Get Started</a> 
-    </div>
-  </section><!-- End Hero --> {% endcomment %}
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -66,33 +57,33 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
   <main id="main">
-
     <!--- ======= Games Section ======= -->
-    <section id="about" class="about">
-      <div class="section-title"> 
+    {% comment %} <!--{% for i in "x"|rjust:4 %}--> {% endcomment %}
+    <section id="about" class="about"><!--{{ forloop.counter }}-->
+      <div class="section-title">
         <h1 class="text-white">Games</h1>
       </div>
-      <div class="row ms-3 me-3">
-        {% for product in products|slice:":4" %}
+    <div class="row ms-3 me-3">
+      {% for product in products %}
         <div class="col-6 col-md-3 mt-2">
             <div class="card rounded" style="background-color:#1d1d1d;">
-              <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="..."></a>
+              <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="Product Images"></a>
                 <div class="card-body">
                   <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{ product.product_name }}</b></h5></a>
                   <p class="card-text text-white">&#8377; {{ product.price }}</p>
                   {% comment %} <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a> {% endcomment %}
                   <a href="{{ product.get_url }}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">View Details</a>
                 </div>
-                </div>
             </div>
-        </div>  
-        {% endfor %}
-      </div>
-
-  </section><!-- End Hero -->
-    </section><!-- End Games Section -->
+        </div>
+      {% endfor %}  
+    </div>
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-primary">See All Products</a>
+    </div>
+  </section><!-- End Game Section -->
+  {% comment %} <!--{% endfor %}--> {% endcomment %}
 
     <!-- ======= Consoles Section ======= -->
     <section id="services" class="services">

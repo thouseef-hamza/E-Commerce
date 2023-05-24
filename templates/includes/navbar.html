@@ -14,9 +14,9 @@
             {% endfor %}
           </ul>
         </li>
-        <li class="dropdown"><a href="#">{% if user.is_authenticated %}<span>{{user.first_name}}</span>{% else %}<span>Account</span>{% endif %}<i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown"><a href="#">{% if user.is_authenticated %}<span>{{user.first_name|capfirst}}</span>{% else %}<span>Account</span>{% endif %}<i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li>{% if user.is_authenticated %}<a href="#">Profile</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
+            <li>{% if user.is_authenticated %}<a href="{% url 'dashboard' %}">Dashboard</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
             <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
           </ul>
         </li>

@@ -1,11 +1,11 @@
 # Django
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 
 # Local Django
-from .forms import SignUpForm
-from .models import Account
+from .forms import SignUpForm,UserForm,UserProfileForm
+from .models import Account,UserProfile
 
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -168,3 +168,27 @@ def resetPassword(request):
             return redirect("resetPassword")
     else:
         return render(request, "accounts/resetPassword.html")
+
+@login_required(login_url='loginPage')
+def dashboard(request):
+    return render(request,'accounts/dashboard.html')
+
+def edit_profile(request):
+    # user_profile = get_object_or_404(UserProfile,user=request.user)
+    # if request.method == 'POST':
+    #     user_form = UserForm(request.POST,instance=request.user)
+    #     profile_form = UserProfileForm(request.POST,request.FILES,instance=user_profile)
+    #     if user_form.is_valid() and profile_form.is_valid():
+    #         user_form.save()
+    #         profile_form.save()
+    #         messages.success(request,'Your Profile Has Been Updated')
+    #         return redirect('edit_profile')
+    # else:
+    #     user_form = UserForm(instance=request.user)
+    #     profile_form = UserProfileForm(instance=user_profile)
+    # context = {
+    #     'user_form' : user_form ,
+    #     'profile_form' : profile_form,
+    # }
+    
+    return render(request,'accounts/edit_profile.html')

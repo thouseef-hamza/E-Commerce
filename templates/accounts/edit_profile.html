@@ -1,4 +1,85 @@
-{% extends 'mainbase.html' %}
+{% extends 'products/base.html' %}
+{% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<div class="container">
+    <div class="row">
+    {% include 'includes/dashboard_sidebar.html' %}
+    <main class="col-md-9">
+        <article class="card">
+        <header class="card-header">
+            <strong class="d-inline-block mr-3">Edit Your Profile</strong>
+        </header>
+        <div class="card-body">
+          <div class="row"> 
+            {% comment %} <div class="col-lg-12"> {% endcomment %}
+              <form  method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <strong class="d-inline-block mr-3">Personal Information</strong>
+                  <div class="col mt-3">
+                    {% comment %} <input type="text" class="form-control" {% if user.is_authenticated %} placeholder="{{user.first_name|capfirst}}" {% else %} placeholder="First name" {% endif %} aria-label="First name"> {% endcomment %}
+                    {{user.first_name}}
+                  </div>
+                  <div class="col mt-3">
+                    <input type="text" class="form-control" {% if user.is_authenticated %} placeholder="{{user.last_name|capfirst}}" {% else %} placeholder="Last name" {% endif %} aria-label="Last name">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-6">
+                    <label>Profile Picture</label>
+                    <input type="file" class="form-control" name="" id="">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <strong class="d-inline-block mr-3">Mobile Number</strong>
+                  <div class="col-6 mt-3">
+                    <input type="text" class="form-control" placeholder="Mobile Number" aria-label="First name">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <strong class="d-inline-block mr-3">Manage Address</strong>
+                  <div class="col-12 mt-3">
+                    <input type="text" class="form-control" placeholder="Address 1">
+                  </div>
+                  <div class="col-12 mt-3">
+                    <input type="text" class="form-control" placeholder="Address 2">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4 mt-3">
+                    <input type="text" class="form-control" placeholder="City">
+                  </div>
+                  <div class="col-4 mt-3">
+                    <input type="text" class="form-control" placeholder="State">
+                  </div>
+                  <div class="col-4 mt-3">
+                    <input type="text" class="form-control" placeholder="Country">
+                  </div>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                  <input type="submit" value="Save" class="btn" style="background-color:#a32cc4;color:white;">
+                </div>
+              </form>
+            </div>
+          </div> <!-- row.// -->
+          <br>
+        </div> <!-- card-body .// -->
+        <div class="table-responsive">
+        
+        </div> <!-- table-responsive .end// -->
+        </article> <!-- order-group.// --> 
+    </main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+{% endblock content %}
+
+{% comment %} {% extends 'mainbase.html' %}
 {% block title %}Account{% endblock title %}
 {% block content %}
 <table class="table table-bordered">
@@ -63,7 +144,7 @@
 </table>
 
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
 
 
 

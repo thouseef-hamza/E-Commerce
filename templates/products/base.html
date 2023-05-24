@@ -68,14 +68,14 @@
       </div>
       <div class="offcanvas-body">
           {% comment %} <div class="card"> {% endcomment %}
-              <article class="filter-group">
-                  <header class="card-header">
+              {% comment %} <article class="filter-group"> {% endcomment %}
+                  {% comment %} <header class="card-header">
                       <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
                           <i class="icon-control fa fa-chevron-down"></i>
                           <h6 class="title">Sizes </h6>
                       </a>
-                  </header>
-                  <div class="filter-content collapse show" id="collapse_4" style="">
+                  </header> {% endcomment %}
+                  {% comment %} <div class="filter-content collapse show" id="collapse_4" style="">
                       <div class="card-body">
                         <label class="checkbox-btn">
                           <input type="checkbox">
@@ -96,17 +96,18 @@
                           <input type="checkbox">
                           <span class="btn btn-light"> XXL </span>
                         </label>
-                  </div><!-- card-body.// -->
-                  </div>
-              </article> <!-- filter-group .// -->
+                  </div><!-- card-body.// --> {% endcomment %}
+                  {% comment %} </div> {% endcomment %}
+              {% comment %} </article> <!-- filter-group .// -->
               <br/>
-              <br/>
+              <br/> {% endcomment %}
               <article class="filter-group">
                   <header class="card-header">
                       <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
                           <i class="icon-control fa fa-chevron-down"></i>
-                          <h6 class="title">Price range </h6>
+                          <span class="title">Price range </span>
                       </a>
+                      <span class="title">Price range </span>
                   </header>
                   <div class="filter-content collapse show" id="collapse_3" style="">
                       <div class="card-body">

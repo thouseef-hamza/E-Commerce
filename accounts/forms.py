@@ -2,8 +2,6 @@
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django import forms
 
-import re
-
 # Local Django
 from .models import Account,UserProfile
 
@@ -11,37 +9,37 @@ from .models import Account,UserProfile
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-content", "placeholder": "First Name"}
+            attrs={"placeholder": "First Name"}
         )
     )
     last_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-content", "placeholder": "Last Name"}
+            attrs={"placeholder": "Last Name"}
         )
     )
     username = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "forms-content", "placeholder": "Username"}
+            attrs={"placeholder": "Username"}
         )
     )
     email = forms.EmailField(
         max_length=50,
         widget=forms.TextInput(
-            attrs={"class": "form-content", "placeholder": "Enter Your Email"}
+            attrs={"placeholder": "Enter Your Email"}
         ),
     )
     password1 = forms.CharField(
         min_length=4,
         max_length=16,
         widget=forms.PasswordInput(
-            attrs={"class": "form-content", "placeholder": "Enter Your Password"}
+            attrs={"placeholder": "Enter Your Password"}
         ),
     )
     password2 = forms.CharField(
         min_length=4,
         max_length=16,
         widget=forms.PasswordInput(
-            attrs={"class": "form-content", "placeholder": "Confirm Your Password"}
+            attrs={"placeholder": "Confirm Your Password"}
         ),
     )
 
@@ -85,12 +83,24 @@ class SignUpForm(UserCreationForm):
         for field in self.fields:
             self.fields[field].widget.attrs["class"] = "form-content"
 
-class UserForm(UserChangeForm):
+class UserForm(UserCreationForm):
+
     class Meta:
         model = Account
         fields = ('first_name','last_name','phone_number')
+        
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        
+        for field in self.fields:
+            self.fields[field].widget.attrs["class"] = "form-control"
         
 class UserProfileForm(UserChangeForm):
     class Meta:
         model = UserProfile
         fields = ('address_line_1','address_line_2','city','state','country','profile_picture')
+        
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs["class"] = "form-control"

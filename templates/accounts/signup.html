@@ -23,7 +23,7 @@
       {% include 'includes/alert.html' %}
       <div class="form-content">
         <div class="login-form">
-          <div class="title">Login</div>
+          <div class="title">Sign Up</div>
           <form  method='post'>
             {% csrf_token %}
             {% include 'includes/formerror.html' %}
@@ -32,7 +32,7 @@
                 <i class="fas fa-user"></i>
                 {{form.first_name}}
               </div>
-              <div class="input-box">
+              <div class="input-box"> 
                 <i class="fas fa-user"></i>
                 {{form.last_name}}
               </div>
@@ -43,10 +43,6 @@
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
                 {{form.email}}
-              </div>
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                {{form.phone_number}}
               </div>
               {% comment %} <small class="form-text text-muted">We'll never share your email with anyone else.</small> {% endcomment %}
               <div class="input-box">

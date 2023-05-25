@@ -17,11 +17,12 @@
                 <div class="row">
                   <strong class="d-inline-block mr-3">Personal Information</strong>
                   <div class="col mt-3">
-                    {% comment %} <input type="text" class="form-control" {% if user.is_authenticated %} placeholder="{{user.first_name|capfirst}}" {% else %} placeholder="First name" {% endif %} aria-label="First name"> {% endcomment %}
+                    <input type="text" class="form-control" placeholder="{{user.first_name|capfirst}}" aria-label="First name">
                     {{user.first_name}}
                   </div>
                   <div class="col mt-3">
-                    <input type="text" class="form-control" {% if user.is_authenticated %} placeholder="{{user.last_name|capfirst}}" {% else %} placeholder="Last name" {% endif %} aria-label="Last name">
+                    {% comment %} <input type="text" class="form-control" placeholder="{{user.last_name|capfirst}}" aria-label="Last name"> {% endcomment %}
+                    {{user.last_name|capfirst}}
                   </div>
                 </div>
                 <br>
@@ -35,7 +36,8 @@
                 <div class="row">
                   <strong class="d-inline-block mr-3">Mobile Number</strong>
                   <div class="col-6 mt-3">
-                    <input type="text" class="form-control" placeholder="Mobile Number" aria-label="First name">
+                    {{user.phone_number}}
+                    {% comment %} <input type="text" class="form-control" placeholder="{{user.phone_number}}" aria-label="First name"> {% endcomment %}
                   </div>
                 </div>
                 <br>

@@ -71,13 +71,10 @@ def signUpPage(request):
             send_email.send()
             # login(request,user)
             # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
-            print("success")
             return redirect("/?command=verification&email=" + email)
     else:
         form = SignUpForm()
-        print("failure")
         return render(request, "accounts/signup.html", {"form": form})
-    print("nothing")
     return render(request, "accounts/signup.html", {"form": form})
 
 
@@ -174,6 +171,7 @@ def dashboard(request):
     return render(request,'accounts/dashboard.html')
 
 def edit_profile(request):
+
     user_profile = get_object_or_404(UserProfile,user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST,instance=request.user)

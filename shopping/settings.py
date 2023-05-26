@@ -83,7 +83,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ECOMdb',
+        'NAME': 'GAMEPYdb',
         'USER': 'postgres',
         'PASSWORD': '2544',
         'HOST':'localhost'

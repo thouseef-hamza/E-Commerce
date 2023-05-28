@@ -32,31 +32,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<header style="position:sticky;" id="header" class="fixed-top bg-black">
+<header style="position:sticky;height:6rem;" id="header" class="fixed-top bg-black">
     <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="{% url 'homePage' %}">Game Py</a></h1>
+      <h1 class="logo mb-3"><a href="{% url 'homePage' %}">Game Py</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="'assets/img/logo.png'" alt="" class="img-fluid"></a>-->
-  
+      {% comment %} <a href="index.html" class="logo"><img src="www.google.com" alt="" class="img-fluid"></a> {% endcomment %}
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{% url 'homePage' %}">Home</a></li>
-          {% for category in links %}
-          <li><a class="nav-link scrollto" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
-          {% endfor %}
-          <li><a class="nav-link scrollto " href="{% url 'logout' %}">Logout</a></li>
-          <li><a class="nav-link scrollto" href="#team">Account</a></li>
-          <a href="{% url 'cart' %}" class="widget-header">
-						<!--<div class="icon icon-lg rounded-circle border">--><i class="fa fa-shopping-cart"> </i><li>&nbspCart</li><!--</div>-->
-						{% comment %} <span class="badge badge-pill badge-danger notify">0</span> {% endcomment %}
-					</a>
+          <li>
+              <form class="d-flex search" action="{% url 'search' %}" method='GET'>
+                <input class="form-control ms-3 me-1 mb-3 text-danger" type="search" placeholder="Search" aria-label="Search" name="keyword" style="background-color:transparent;border-color:#A32CC4;color:#A32CC4;">
+                <button class="btn mb-3" type="submit" style="background-color:#A32CC4;color:white;"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+              </form>
+          </li> 
+          <li><a class="nav-link scrollto active mb-3" href="{% url 'homePage' %}">Home</a></li>
+          <li class="dropdown mb-3"><a href="#"><span>Products</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              {% for category in links  %}
+              <li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="dropdown mb-3"><a href="#">{% if user.is_authenticated %}<span>{{user.first_name|capfirst}}</span>{% else %}<span>Account</span>{% endif %}<i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li>{% if user.is_authenticated %}<a href="{% url 'dashboard' %}">Dashboard</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
+              <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
+            </ul>
+          </li>
+          {% comment %} <a href="{% url 'cart' %}" class="widget-header">
+           <div class="icon icon-lg"><i class="bi bi-cart"></i></div>
+            <span class="badge badge-pill badge-danger notify">0</span> 
+            <li>Cart</h6>
+          </a>  {% endcomment %}
+          <li class="mb-3"><a href="{% url 'cart' %}">Cart</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
   
     </div>
 
-    <form class="d-flex search" action="{% url 'search' %}" method='GET'>
+    {% comment %} <form class="d-flex search" action="{% url 'search' %}" method='GET'>
         <input class="form-control me-2 ms-4 mt-3" type="search" placeholder="Search" aria-label="Search" name="keyword">
         <button class="btn me-3 mt-3" type="submit" style="border-color:#A32CC4;color:#A32CC4;">Search</button>
       <br>
@@ -101,7 +116,7 @@
               {% comment %} </article> <!-- filter-group .// -->
               <br/>
               <br/> {% endcomment %}
-              <article class="filter-group">
+              {% comment %} <article class="filter-group">
                   <header class="card-header">
                       <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
                           <i class="icon-control fa fa-chevron-down"></i>
@@ -147,7 +162,7 @@
           </div> <!-- card.// -->
       </div>
     </div>
-    </form>
+    </form> {% endcomment %}
   </header><!-- End Header -->
   <section class="section-pagetop bg"> 
     <div class="container">

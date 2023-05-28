@@ -13,20 +13,20 @@
           <h1 style="font-familt:arial-black" class="card-title text-white ms-4 mt-4">{{ single_product.product_name }}</h1>
           <p class="card-text"><h3 class="text-white ms-4"><bold>&#8377; {{ single_product.price }}</bold></h3></p>
           {% comment %} <h6>Description</h6> {% endcomment %}
-          <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>          
+          <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>  
           {% comment %} <a href="./product-detail.html" class="btn  btn-primary ms-4"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i></a> {% endcomment %}
           {% if single_product.stock <= 0 %}
             <h5 class="text-danger ms-4">Out Of Stock</h5>
           {% else %}
             {% if in_cart %}
               <div class="d-grid gap-2 ms-4 me-4">
-              <a href="#"  class="btn text-white btn-success" type="button">Added to Cart &nbsp&nbsp <i class="fa fa-check"></i></a>
-              <a href="{% url 'cart' %}" style="background-color:#A32CC4;" class="btn text-white" type="button">View Cart &nbsp&nbsp <i class="fa fa-eye"></i></a>
+              <a href="#"  class="btn text-white btn-success" type="button">Added to Cart &nbsp;&nbsp; <i class="fa fa-check"></i></a>
+              <a href="{% url 'cart' %}" style="background-color:#A32CC4;" class="btn text-white" type="button">View Cart &nbsp;&nbsp; <i class="fa fa-eye"></i></a>
               </div>
             {% else %}
               <div class="d-grid gap-2 ms-4 me-4">
                 <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white" type="button">Add to Cart</a>
-                <button style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</button>
+                {% comment %} <a href="{% url 'checkout' %}" style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</a> {% endcomment %}
               </div>
             {% endif %}
           {% endif %}

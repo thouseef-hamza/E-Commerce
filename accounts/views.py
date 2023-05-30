@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 # Local Django
 from .forms import SignUpForm,UserForm,UserProfileForm
 from .models import Account,UserProfile
+from carts.models import Cart,CartItem
+from carts.views import _cart_id
 
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -26,6 +28,17 @@ def logInPage(request):
         user = auth.authenticate(email=email, password=password)
         print(user)
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request)) 
+                is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                if is_cart_item_exists:
+                    cart_item = CartItem.objects.filter(cart=cart)
+                    
+                    for item in cart_item:
+                        item.user=user
+                        item.save() 
+            except:
+                pass
             auth.login(request, user)
             return redirect("homePage")
         else:
@@ -171,7 +184,6 @@ def dashboard(request):
     return render(request,'accounts/dashboard.html')
 
 def edit_profile(request):
-
     user_profile = get_object_or_404(UserProfile,user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST,instance=request.user)

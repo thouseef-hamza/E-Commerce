@@ -1,6 +1,6 @@
 from django.db import models
 from products.models import Product
-
+from accounts.models import Account
 
 # Create your models here.
 
@@ -13,8 +13,9 @@ class Cart(models.Model):
         return self.cart_id
     
 class CartItem(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,null=True)
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart,on_delete=models.CASCADE,null=True)
     quantity = models.IntegerField()
     is_active = models.BooleanField(default=True)
     
@@ -23,4 +24,4 @@ class CartItem(models.Model):
         return self.product.price * self.quantity
     
     def __str__(self):
-        return self.product
+        return self.product.product_name

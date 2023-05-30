@@ -166,13 +166,13 @@
   </header><!-- End Header -->
   <section class="section-pagetop bg"> 
     <div class="container">
-      <h2 class="title-page text-white">{% block title %}{% endblock title %}</h2>
+      {% comment %} <h2 class="title-page text-white">{% block title %}{% endblock title %}</h2> {% endcomment %}
       {% block content %}
   
       {% endblock content %}
     </div>
     
-  </section>
+  </section> 
 
 
    {% include 'includes/footer.html' %}

@@ -34,6 +34,9 @@
 </head>
 <body>
    {% include 'includes/navbar.html' %}
+
+   <!--=======================  Carousel Section  ===============================-->
+
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -61,31 +64,11 @@
     </button>
   </div>
   <main id="main">
-    <!--- ======= Games Section ======= -->
-    {% comment %} <!--{% for i in "x"|rjust:4 %}--> {% endcomment %}
-    {% comment %} <section id="about" class="about"><!--{{ forloop.counter }}-->
-      <div class="section-title">
-        <h1 class="text-white">Games</h1>
-      </div>
-    <div class="row ms-3 me-3">
-      {% for product in products %}
-        <div class="col-6 col-md-3 mt-2">
-            <div class="card rounded" style="background-color:#1d1d1d;">
-              <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="Product Images"></a>
-                <div class="card-body">
-                  <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{ product.product_name }}</b></h5></a>
-                  <p class="card-text text-white">&#8377; {{ product.price }}</p>
-                  {% comment %} <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a>
-                  <a href="{{ product.get_url }}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">View Details</a>
-                </div>
-            </div>
-        </div>
-      {% endfor %}  
-    </div>
-    <div class="text-center mt-4">
-      <a href="#" class="btn btn-primary">See All Products</a>
-    </div>
-  </section>{% endcomment %}<!-- End Game Section -->
+
+   <!--======================= End Carousel Section  ===============================-->
+
+<!--- ================= Product Section ================= -->
+
   {% for category in categories %}
   <section id="about" class="about">
     <div class="section-title">
@@ -109,8 +92,12 @@
   <div class="text-center mt-4">
     <a href="{{category.get_url}}" class="btn" style="border-color:#A32CC4;color:#A32CC4;">See all Products</a>
   </div>
-</section><!-- End Game Section -->
+</section>
 {% endfor %}
+
+<!--============== End Product Section ================= -->
+
+
     <!-- ======= Pricing Section ======= -->
     <section id="pricing" class="pricing">
       {% comment %} <div class="container">

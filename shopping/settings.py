@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'category',
     'products',
     'carts',
+    'orders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,7 +133,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
-# Media Files Configuration
+# Media Files Configuration 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 

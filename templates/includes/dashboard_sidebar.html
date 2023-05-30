@@ -8,7 +8,7 @@
     </div>    
     <br>
     <ul class="list-group"  style="border-radius:0px;">
-        <a class="list-group-item" {% if '/dashboard/' in request.path %} style="background-color:#A32CC4;color:white;"  {% endif %} href="#"> Dashboard</a>
+        <a class="list-group-item" {% if '/dashboard/' in request.path %} style="background-color:#A32CC4;color:white;"  {% endif %} href="{% url 'dashboard' %}"> Dashboard</a>
         <a class="list-group-item" href="#"> My Orders </a>
         <a class="list-group-item" {% if '/edit_profile/' in request.path %} style="background-color:#A32CC4;color:white;"  {% endif %} href="{% url 'edit_profile' %}"> Edit Profile </a>
         <a class="list-group-item" href="#"> Change Password </a>

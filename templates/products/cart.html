@@ -49,7 +49,7 @@
                                     <div class="col"> 
                                         <div class="input-group input-spinner">
                                             <div class="input-group-prepend me-1 ">
-                                            <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-buy" type="button" id="button-plus"> <i class="fa fa-minus"></i></a>
+                                            <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-buy" type="button" id="button-plus"> <i class="fa fa-minus"></i></a>
                                             </div>
                                             <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
                                             <div class="input-group-append">
@@ -61,7 +61,7 @@
                                 <td>
                                     <div class="price-wrap"> <var class="price">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
                                 </td>
-                                <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td>
+                                <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-light" data-abc="true" onclick="return confirm('Are You Sure Want To Delete This Item?')"> Remove</a> </td>
                             </tr>
                         </tbody>
                         {% endfor %}

@@ -24,15 +24,11 @@
         <li class="dropdown mb-3"><a href="#">{% if user.is_authenticated %}<span>{{user.first_name|capfirst}}</span>{% else %}<span>Account</span>{% endif %}<i class="bi bi-chevron-down"></i></a>
           <ul>
             <li>{% if user.is_authenticated %}<a href="{% url 'dashboard' %}">Dashboard</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
-            <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
+            <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}" onclick="return confirm('Are You Sure Want Log Out')">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
           </ul>
         </li>
-        {% comment %} <a href="{% url 'cart' %}" class="widget-header">
-         <div class="icon icon-lg"><i class="bi bi-cart"></i></div>
-          <span class="badge badge-pill badge-danger notify">0</span> 
-          <li>Cart</h6>
-        </a>  {% endcomment %}
-        <li class="mb-3"><a href="{% url 'cart' %}">Cart</a></li>
+
+        <li class="mb-3"><a href="{% url 'cart' %}">Cart&nbsp;<span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">{{cart_count}}</span></a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->

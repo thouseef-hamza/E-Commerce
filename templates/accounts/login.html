@@ -2,13 +2,6 @@
 {% block title %}Log In{% endblock title %}
 {% block content %}
 {% load static %}
-{% if request.GET.command == 'verification' %}
-<div class="container mx-auto alert alert-info" role="alert" style="max-width: 380px; margin-top:100px;">
-Thank You For Registering With Us, We Have Sent You a Verification Email To Your Email Address {{ request.GET.email }} <br>Please Verify!
-<br><br> 
-Already Verified? <a href="{% url 'loginPage' %}">Login</a>
-</div>
-{% else %}
 <div class="container"> 
   <div class="cover">
      <div class="front">
@@ -28,11 +21,19 @@ Already Verified? <a href="{% url 'loginPage' %}">Login</a>
     </div>
   </div> 
   <div class="forms">
+    
       {% include 'includes/alert.html' %}
       <div class="form-content">
         <div class="login-form">
           <div class="title">Login</div>
-          <form method="POST">
+          {% if request.GET.command == 'verification' %}
+            <div class="container mx-auto alert alert-success" role="alert">
+            Thank You For Registering With Us, We Have Sent You a Verification Email To Your Email Address <a href="https://mail.google.com/">{{ request.GET.email }}</a> <br>Please Verify!
+            </div>
+            {% comment %} <br><br> 
+            Already Verified? <a href="{% url 'loginPage' %}">Login</a> {% endcomment %}
+            {% endif %}
+          <form action="{% url 'loginPage' %}" method="POST">
             {% csrf_token %}            
             <div class="input-boxes">
               <div class="input-box">
@@ -55,5 +56,4 @@ Already Verified? <a href="{% url 'loginPage' %}">Login</a>
   </div>
   </div>
 </div>
-{% endif %}
 {% endblock content %}

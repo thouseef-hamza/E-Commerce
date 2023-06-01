@@ -1,8 +1,20 @@
-{% if messages %}
+{% comment %} {% if messages %}
     {% for message in messages  %}
-    <div class="alert alert-warning alert-dismissible fade show" style="margin-right: 27rem;padding-right:3rem;width:17rem;" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show"  role="alert">
         {{ message }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
+{% endif %} {% endcomment %}
+
+{% if messages %}
+   {% for message in messages %}
+   {% comment %} <div  id="message-testing" class="container" style="position:relative;"> {% endcomment %}
+        <div {% if message.tags %} class="alert alert-{{message.tags}}"{% endif %} role="alert">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERRORS %} Important: {% endif %}
+            {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% comment %} </div>  {% endcomment %}
+   {% endfor %}     
 {% endif %}

@@ -9,6 +9,9 @@ from .models import Account,UserProfile
 from carts.models import Cart,CartItem
 from carts.views import _cart_id
 
+# 
+import requests
+
 # Email Verification
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -26,21 +29,29 @@ def logInPage(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = auth.authenticate(email=email, password=password)
-        print(user)
         if user is not None:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request)) 
                 is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
                 if is_cart_item_exists:
                     cart_item = CartItem.objects.filter(cart=cart)
-                    
                     for item in cart_item:
                         item.user=user
-                        item.save() 
+                        item.save()
             except:
-                pass
-            auth.login(request, user)
-            return redirect("homePage")
+                pass     
+            auth.login(request, user) 
+            url = request.META.get('HTTP_REFERER') #------> http://127.0.0.1:8081/accounts/login/?next=/cart/checkout/
+            try:
+                query = requests.utils.urlparse(url).query #-----------> next=/cart/checkout/
+                params = dict(x.split('=') for x in query.split('&'))
+                if 'next' in params:
+                    nextPage=params['next']
+                    return redirect(nextPage)
+            except:
+                return redirect("homePage")
+            
+        
         else:
             messages.error(request, "Invalid Login Credentials")
             return redirect("loginPage")
@@ -84,11 +95,13 @@ def signUpPage(request):
             send_email.send()
             # login(request,user)
             # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
-            return redirect("/?command=verification&email=" + email)
+            return redirect("accounts/login/?command=verification&email=" + email)
     else:
         form = SignUpForm()
-        return render(request, "accounts/signup.html", {"form": form})
-    return render(request, "accounts/signup.html", {"form": form})
+    context = {
+        'form':form
+    }
+    return render(request, "accounts/signup.html", context)
 
 
 @login_required(login_url="loginPage")

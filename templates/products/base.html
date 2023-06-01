@@ -55,8 +55,12 @@
           </li>
           <li class="dropdown mb-3"><a href="#">{% if user.is_authenticated %}<span>{{user.first_name|capfirst}}</span>{% else %}<span>Account</span>{% endif %}<i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li>{% if user.is_authenticated %}<a href="{% url 'dashboard' %}">Dashboard</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
-              <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
+              <li>{% if user.is_authenticated %}  <a href="{% url 'dashboard' %}">Dashboard</a>{% else %}<a href="{% url 'signUpPage' %}">Sign Up</a>{% endif %}</li>
+              {% if user.is_authenticated %}
+              <li><a href="#">Orders</a></li>
+              <li><a href="#">Wishlist</a></li>
+              {% endif %}
+              <li>{% if user.is_authenticated %}<a href="{% url 'logout' %}" onclick="return confirm('Are You Sure Want Log Out')">Log Out</a>{% else %}<a href="{% url 'loginPage' %}">Log In</a>{% endif %}</li>
             </ul>
           </li>
           {% comment %} <a href="{% url 'cart' %}" class="widget-header">
@@ -64,8 +68,7 @@
             <span class="badge badge-pill badge-danger notify">0</span> 
             <li>Cart</h6>
           </a>  {% endcomment %}
-          <li class="mb-3"><a href="{% url 'cart' %}">Cart</a></li>
-        </ul>
+          <li class="mb-3"><a href="{% url 'cart' %}">Cart&nbsp;<span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">{{cart_count}}</span></a></li>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
   
@@ -185,7 +188,11 @@
   <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
-
+  {% comment %} <script type="text/javascript">
+    window.setTimeout(function () {
+      location.href = "{% url 'product_detail' %}";
+  }, 5000); // refresh/redirect after 5 seconds.
+  </script> {% endcomment %}
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
 

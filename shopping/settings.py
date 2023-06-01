@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'category.context_processors.nav_links',
+                'carts.context_processors.counter',
             ],
         },
     },
@@ -145,8 +146,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login,Logout Configuration
 
-LOGIN_REDIRECT_URL = '/home'
-LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = '/home'
+
+# Django Messages
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
  
 # SMTP Configuration
@@ -156,3 +163,4 @@ EMAIL_HOST_USER = 'thouseefhamzatp101@gmail.com'
 EMAIL_HOST_PASSWORD = 'mlpgstyskwwaduvl' #App Pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+

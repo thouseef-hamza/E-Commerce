@@ -75,13 +75,10 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
-        self.fields["first_name"].widget.attrs["placeholder"] = "First Name"
-        self.fields["last_name"].widget.attrs["placeholder"] = "Last Name"
-        self.fields["username"].widget.attrs["placeholder"] = "Username"
-        self.fields["email"].widget.attrs["placeholder"] = "Enter Your Email"
-
         for field in self.fields:
             self.fields[field].widget.attrs["class"] = "form-content"
+    
+    
 
 class UserForm(UserCreationForm):
 

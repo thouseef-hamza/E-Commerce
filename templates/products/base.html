@@ -28,10 +28,19 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
   
+  <!-- Custom CSS File -->
+  <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+  
+  
+  
   <!-- Font Awesome CDN-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script> {% endcomment %}
+  <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
 </head>
 <body>
+ 
 <header style="position:sticky;height:6rem;" id="header" class="fixed-top bg-black">
     <div class="container d-flex align-items-center justify-content-between">
       <h1 class="logo mb-3"><a href="{% url 'homePage' %}">Game Py</a></h1>
@@ -195,6 +204,7 @@
   </script> {% endcomment %}
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 
 </body>
 

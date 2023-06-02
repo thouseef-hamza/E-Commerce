@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 
 
 from carts.models import CartItem
@@ -6,6 +6,9 @@ from .forms import OrderForm,Order
 
 import datetime
 # Create your views here.
+
+def payments(request):
+    return render(request,'orders/payments.html')
 
 def place_order(request,total=0,quantity=0):
     current_user = request.user
@@ -22,14 +25,15 @@ def place_order(request,total=0,quantity=0):
     for cart_item in cart_items:
         total += (cart_item.product.price * cart_item.quantity)
         quantity += cart_item.quantity
-    tax = (2 * total)/100
+    tax = (18 * total)/100
     grand_total = total + tax    
     
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            # Storing All The Billing Information inside Oredr Table
+            # Storing All The Billing Information inside Order Table
             data = Order()
+            data.user = current_user
             data.first_name = form.cleaned_data['first_name']
             data.last_name = form.cleaned_data['last_name']
             data.phone = form.cleaned_data['phone']
@@ -42,7 +46,7 @@ def place_order(request,total=0,quantity=0):
             data.order_note = form.cleaned_data['order_note']
             data.order_total = grand_total
             data.tax = tax
-            data.ip = request.META.get['REMOTE_ADDR']
+            data.ip = request.META.get('REMOTE_ADDR')
             data.save()
             # Generate Order Number
             yr = int(datetime.date.today().strftime('%Y'))
@@ -53,12 +57,22 @@ def place_order(request,total=0,quantity=0):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
-            return redirect('checkout')
+            
+            order = Order.objects.get(user=current_user,is_ordered=False,order_number=order_number)
+            context = {
+                'order' : order,
+                'cart_items':cart_items,
+                'total':total,
+                'tax':tax,
+                'grand_total':grand_total,
+            }
+            return render(request,'orders/payments.html',context)
     else:
         return redirect('checkout')
             
+
             
-            
+             
 
             
             

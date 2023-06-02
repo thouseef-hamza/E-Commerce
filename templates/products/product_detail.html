@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <header class="section-heading ms-5 mt-5">
+    {% comment %} <header class="section-heading ms-5 mt-5">
       <h3 class="card-text text-white">Customer Reviews </h3>  
     </header>
     <br/>
@@ -49,6 +49,93 @@
                   quis nostrud exercitation ullamco laboris nisi ut aliquipfghjjjjjjjjjjjjjjjjjjjjjjjjjj
               </p>	
           </div>
-      </article>
+      </article> {% endcomment %}
 </div>
+<div class="card bg-dark text-white mt-3">
+  <div class="card-body p-4">
+    <form action="{% url 'submit_review' single_product.id %}" method="POST">
+      {% csrf_token %}
+      <h5>Write Your Reviews</h5>
+      <label>Rate Product<label>
+      <div class="rate">
+        <input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
+        <input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
+        <input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
+        <input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+        <input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+        <input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+        <input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+        <input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+        <input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+        <input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+
+
+      </div>
+      <div>
+        
+        Review Title
+        <input type="text" class="form-control bg-dark text-white" name="subject">
+        Review
+        <textarea name="review" id="" rows="4" class="form-control bg-dark text-white " ></textarea>
+        <br/>
+        <input type="submit" value="Submit Review" class="form-control btn btn-primary" >
+      </div>
+    </form>
+    <br>
+    <h4 class="mb-0">Customer Reviews</h4>
+    <p class="fw-light mb-4 pb-2">Realtime Review By Users</p>
+    <div class="d-flex flex-start">
+      <img class="rounded-circle shadow-1-strong me-3"
+        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+        height="60" />
+      <div>
+        <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+        <div class="d-flex align-items-center mb-3">
+          <p class="mb-0">
+            March 07, 2021
+            {% comment %} <span class="badge bg-primary">Pending</span> {% endcomment %}
+          </p>
+          {% comment %} <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+          <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+          <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a> {% endcomment %}
+        </div>
+        <p class="mb-0">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr class="my-0" />
+</div>  
 {% endblock content %}
+<section style="background-color: #eee;">
+   <div class="container my-5 py-5">
+    <div class="d-flex flex-start">
+      <div class="col-12">
+        <div class="card">
+           <div class="card-body">
+            <div class="d-flex flex-start align-items-center">
+          <div class="card-footer" style="background-color: #f8f9fa;">
+            <div class="d-flex flex-start">
+              <img class="rounded-circle shadow-1-strong me-3"
+                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                height="40" />
+              <div class="form-outline">
+                <textarea class="form-control" id="textAreaExample" rows="4"
+                  style="background: #fff;"></textarea>
+                <label class="form-label" for="textAreaExample">Message</label>
+              </div>
+            </div>
+            <div class="float-end mt-2 pt-1">
+              <button type="button" class="btn btn-primary btn-sm">Post comment</button>
+              <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

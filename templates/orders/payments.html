@@ -1,0 +1,104 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<h3 class="ms-3 text-white text-center">Order Review And Payment</h3>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-lg-8">
+            <div style="border-radius:0px;" class="card"> 
+                <h5 class="card-header">Billing Address</h5>
+                <div class="card-body">
+                    <p class="card-text mb-0">{{order.first_name | capfirst}} {{order.last_name|capfirst}}</p>
+                    <p class="card-text mb-0">{{order.full_address}}</p>
+                    <p class="card-text mb-0">{{order.city}},{{order.state}}</p>
+                    <p class="card-text mb-0">{{order.country}}</p>
+                    <p class="card-text mb-0">{{order.email}}</p>
+                    <p class="card-text mb-0">{{order.phone}}</p>
+                    {% if order.order_note %}
+                       <b>Order Note : </b> {{order.order_note}}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card mt-1"> 
+                <h5 class="card-header">Payment Method</h5>
+                <div class="card-body">
+                    <p class="card-text">Paypal</p>
+                </div>
+            </div>
+            <div style="border-radius:0px;" class="card"> 
+                <h5 class="card-header">Review Products</h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="160">Quantity</th>
+                                    <th scope="col" width="100">Price</th>
+                                    <th scope="col" class="text-right d-none d-md-block" width="40"></th>
+                                </tr>
+                            </thead>
+                            {% for cart_item in cart_items %}
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src="{{ cart_item.product.images.url}}" class="img-sm"></a></div>
+                                            <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-dark" data-abc="true">{{ cart_item.product.product_name }}</a>
+                                                {% comment %} <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p> {% endcomment %}
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td> 
+                                        <div class="d-grid justcol"> 
+                                            <label for="">{{cart_item.quantity}}</label>
+                                        </div>
+                                    </td> 
+                                    <td>
+                                        <div class="price-wrap"> <var class="price">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
+                                    </td>
+                                    {% comment %} <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td> {% endcomment %}
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                </div>
+            </div>
+        </aside>
+        <aside class="col-lg-4">
+            {% comment %} <div class="card mb-3" style="border-radius:0px;">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group"> <label>Have coupon?</label>
+                            <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                        </div>
+                    </form>
+                </div>
+            </div> {% endcomment %}
+            <div class="card" style="border-radius:0px;">
+                <div class="card-body">
+                    <dl class="dlist-align">
+                        <dt>Total price: </dt>
+                        <dd class="text-right">&#8377; {{total}}</dd>
+                    </dl>
+                    <dl class="dlist-align">
+                        <dt>Tax:</dt>
+                        <dd class="text-left text-danger ms-5">&#8377; {{tax}}</dd>
+                    </dl>
+                    <hr/>
+                    <dl class="dlist-align">
+                        <dt>Total:</dt>
+                        <dd class="text-right text-dark b ms-4"><strong> &#8377; {{grand_total}}</strong></dd>
+                    </dl>
+                    <div id="paypal-button-container">
+                        jbjkn       cfgvhbjnklmnkjbvhcyxdyfcgvhbjnkm;nkljbvhcyxcfgvbhnjmknjbhvgucyxtcyfvgbhnjbhvgc  
+                    </div>
+                </div>
+            </div>
+            
+        </aside>
+ 
+    </div>
+</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.cache import never_cache
 # Local Django
 from .forms import SignUpForm,UserForm,UserProfileForm
 from .models import Account,UserProfile
@@ -23,7 +23,7 @@ from django.core.mail import EmailMessage
 
 # Create your views here.
 
-
+@never_cache
 def logInPage(request):
     if request.method == "POST":
         email = request.POST["email"]

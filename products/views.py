@@ -54,3 +54,9 @@ def search(request):
     }
     return render(request,'products/products.html',context)
  
+def submit_review(request):
+    if request.method == 'POST':
+        try:
+            pass
+        except:
+            pass

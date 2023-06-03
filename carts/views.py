@@ -56,7 +56,7 @@ def add_cart(request,product_id):
             cart = Cart.objects.create(
                 cart_id = _cart_id(request)
             )
-        cart.save()
+            cart.save()
 
         is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
         if is_cart_item_exists:

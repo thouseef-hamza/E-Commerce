@@ -23,7 +23,6 @@ from django.core.mail import EmailMessage
 
 # Create your views here.
 
-@never_cache
 def logInPage(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -50,8 +49,6 @@ def logInPage(request):
                     return redirect(nextPage)
             except:
                 return redirect("homePage")
-            
-        
         else:
             messages.error(request, "Invalid Login Credentials")
             return redirect("loginPage")

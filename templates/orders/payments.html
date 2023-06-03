@@ -91,7 +91,7 @@
                         <dd class="text-right text-dark b ms-4"><strong> &#8377; {{grand_total}}</strong></dd>
                     </dl>
                     <div id="paypal-button-container">
-                        jbjkn       cfgvhbjnklmnkjbvhcyxdyfcgvhbjnkm;nkljbvhcyxcfgvbhnjmknjbhvgucyxtcyfvgbhnjbhvgc  
+                      
                     </div>
                 </div>
             </div>
@@ -100,5 +100,23 @@
  
     </div>
 </div>
-
+<script>
+    paypal.Button.render({
+        env: 'sandbox', // Replace with 'production' for live payments
+        client: {
+            sandbox: 'YOUR_SANDBOX_CLIENT_ID',
+            production: 'YOUR_PRODUCTION_CLIENT_ID'
+        },
+        payment: function (data, actions) {
+            return actions.request.post('/create-payment/')
+                .then(function (res) {
+                    return res.id;
+                });
+        },
+        onAuthorize: function (data, actions) {
+            return actions.redirect('/execute-payment/?paymentId=' + data.paymentID + '&payerId=' + data.payerID);
+        }
+    }, '#paypal-button-container');
+    
+</script>
 {% endblock %}

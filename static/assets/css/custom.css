@@ -32,11 +32,15 @@
 /* Click And Hover */
 
 input:checked ~ label,label:hover ~ label{
-    color: #ffb503;
+    color: #ffe100;
 }
 
 /* Hover HighLight */
 input:checked + label:hover,input:checked ~ label:hover,input:checked ~ label:hover ~ label,
 label:hover ~ input:checked ~ label{
     color: #cc9000; 
+}
+
+.rating-star i{
+    color:#ffb503;
 }

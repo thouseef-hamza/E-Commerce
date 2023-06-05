@@ -101,22 +101,78 @@
     </div>
 </div>
 <script>
-    paypal.Button.render({
-        env: 'sandbox', // Replace with 'production' for live payments
-        client: {
-            sandbox: 'YOUR_SANDBOX_CLIENT_ID',
-            production: 'YOUR_PRODUCTION_CLIENT_ID'
-        },
-        payment: function (data, actions) {
-            return actions.request.post('/create-payment/')
-                .then(function (res) {
-                    return res.id;
-                });
-        },
-        onAuthorize: function (data, actions) {
-            return actions.redirect('/execute-payment/?paymentId=' + data.paymentID + '&payerId=' + data.payerID);
+
+	function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
-    }, '#paypal-button-container');
-    
+    }
+    return cookieValue;
+}
+
+	var amount = "{{ grand_total }}"
+	var url = "{% url 'payments' %}"
+	var csrftoken = getCookie('csrftoken');
+	var orderID = "{{order.order_number}}"
+	var payment_method = 'PayPal'
+	var redirect_url = "{% url 'order_complete' %}"
+	// Render the PayPal button into #paypal-button-container
+	paypal.Buttons({
+
+		style: {
+			color: 'gold',
+			shape: 'rect',
+			label: 'pay',
+			height: 40
+		},
+
+		// Set up the transaction
+		createOrder: function(data, actions) {
+			return actions.order.create({
+				purchase_units: [{
+					amount: {
+						value: amount,
+					}
+				}]
+			});
+		},
+
+		// Finalize the transaction
+		onApprove: function(data, actions) {
+			return actions.order.capture().then(function(details) {
+				// Show a success message to the buyer
+				console.log(details);
+				sendData();
+				function sendData(){
+					fetch(url, {
+						method : "POST",
+						headers: {
+							"Content-type": "application/json",
+							"X-CSRFToken": csrftoken,
+						},
+						body: JSON.stringify({
+							orderID: orderID,
+							transID: details.id,
+							payment_method: payment_method,
+							status: details.status,
+						}),
+					})
+				    .then((response) => response.json())
+				    .then((data) => {
+						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+					});
+				}
+			});
+		} 
+	}).render('#paypal-button-container');
 </script>
+
 {% endblock %}

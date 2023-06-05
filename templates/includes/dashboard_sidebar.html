@@ -1,17 +1,30 @@
-<aside class="col-md-3">
-    <div class="card" style="border-radius:0px;">
-        <div class="card-body">
-          <div class="d-grid gap-2 d-md-flex justify-content-center">
-            <a href="#"><span class="text text-dark">{{user.first_name|capfirst}} {{user.last_name|capfirst}}</span></a>
+{% load static %} 
+<aside class="col-md-3 mb-3">
+    <div class="card bg-dark">
+        <div class="card-body bg-dark">
+          <div class="d-flex flex-start">
+            {% if user_profile.profile_picture %}
+              <img class="rounded-circle shadow-1-strong me-2"
+                src="{{user_profile.profile_picture.url}}" alt="avatar" width="60"
+                height="60" />
+            {% else %}
+              <img class="rounded-circle shadow-1-strong me-3"
+              src="{% static 'assets/img/profile-picture.png' %}" alt="avatar" width="60"
+              height="60" />
+            {% endif %}
+             <div class="d-grid gap-2 mt-2 justify-content-center">
+              <span class="text text-white"><small>Hello,</small><span>  
+              <h6 class="fw-bold mb-1 text-white d-grid d-md-flex justify-content-center">{{user.first_name|capfirst}} {{user.last_name|capfirst}}</h6>
+            </div>
           </div>
         </div>
     </div>    
     <br>
     <ul class="list-group"  style="border-radius:0px;">
-        <a class="list-group-item" {% if '/dashboard/' in request.path %} style="background-color:#A32CC4;color:white;"  {% endif %} href="{% url 'dashboard' %}"> Dashboard</a>
-        <a class="list-group-item" href="#"> My Orders </a>
-        <a class="list-group-item" {% if '/edit_profile/' in request.path %} style="background-color:#A32CC4;color:white;"  {% endif %} href="{% url 'edit_profile' %}"> Edit Profile </a>
-        <a class="list-group-item" href="#"> Change Password </a>
+        <a class="list-group-item"  {% if '/dashboard/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white"  {% endif %} href="{% url 'dashboard' %}"> Dashboard</a>
+        <a class="list-group-item bg-dark" href="#"> My Orders </a>
+        <a class="list-group-item" {% if '/edit_profile/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white" {% endif %}  href="{% url 'edit_profile' %}"> Edit Profile </a>
+        <a class="list-group-item" {% if '/change_password/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white" {% endif %}  href="{% url 'change_password' %}"> Change Password </a>
     </ul>
     <a class="btn btn-light d-grid mt-1" href="{% url 'logout' %}"  style="border-radius:0px;"><i class="fa fa-power-off"><span class="text"> Log out</span></i></a> 
 </aside>

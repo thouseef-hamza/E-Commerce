@@ -191,7 +191,11 @@ def resetPassword(request):
 
 @login_required(login_url='loginPage')
 def dashboard(request):
-    return render(request,'accounts/dashboard.html')
+    user_profile = get_object_or_404(UserProfile,user=request.user)
+    context={
+        'user_profile':user_profile,
+    }
+    return render(request,'accounts/dashboard.html',context)
 
 def edit_profile(request):
     user_profile = get_object_or_404(UserProfile,user=request.user)
@@ -209,7 +213,29 @@ def edit_profile(request):
     context = {
         'user_form' : user_form ,
         'profile_form' : profile_form,
+        'user_profile':user_profile,
     }
-
-    
     return render(request,'accounts/edit_profile.html',context)
+
+# @login_required(login_url='loginPage')
+def change_password(request):
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+        
+        user = Account.objects.get(username__exact=request.user.username)
+        
+        if new_password == confirm_password:
+            success=user.check_password(current_password)
+            if success:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request,'Password Update Successfully')
+                return redirect('change_password')
+            else:
+                messages.error(request,'Please Enter Valid Current Password')
+                return redirect('change_password')
+        else:
+            messages.error(request,"Password Didn't Matched")
+    return render(request,'accounts/change_password.html')

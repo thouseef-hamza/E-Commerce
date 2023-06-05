@@ -63,7 +63,6 @@ def add_cart(request,product_id):
             cart_item = CartItem.objects.filter(product=product, cart=cart)
             for item in cart_item:
                 item.quantity += 1
-                print(item.quantity)
                 item.save()
         else:
             cart_item = CartItem.objects.create(

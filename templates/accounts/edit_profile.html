@@ -4,61 +4,58 @@
 <div class="container">
     <div class="row">
     {% include 'includes/dashboard_sidebar.html' %}
-    <main class="col-md-9">
-        <article class="card">
+    <main class="col-md-9 ">
+        <article class="card bg-dark text-white">
         <header class="card-header">
+          {% include 'includes/alert.html' %}
             <strong class="d-inline-block mr-3">Edit Your Profile</strong>
         </header>
-        <div class="card-body">
+        <div class="card-body bg-dark text-white">
           <div class="row"> 
-            {% comment %} <div class="col-lg-12"> {% endcomment %}
-              <form  method="POST">
+              <form action="{% url 'edit_profile' %}"  method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                   <strong class="d-inline-block mr-3">Personal Information</strong>
                   <div class="col mt-3">
-                    <input type="text" class="form-control" placeholder="{{user.first_name|capfirst}}" aria-label="First name">
-                    {{user.first_name}}
+                    {{user_form.first_name|capfirst}}
                   </div>
                   <div class="col mt-3">
-                    {% comment %} <input type="text" class="form-control" placeholder="{{user.last_name|capfirst}}" aria-label="Last name"> {% endcomment %}
-                    {{user.last_name|capfirst}}
+                    {{user_form.last_name|capfirst}}
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-6">
-                    <label>Profile Picture</label>
-                    <input type="file" class="form-control" name="" id="">
+                    <strong class="d-inline-block mr-3 mb-1">Profile Picture</strong>
+                    {{profile_form.profile_picture}}
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <strong class="d-inline-block mr-3">Mobile Number</strong>
                   <div class="col-6 mt-3">
-                    {{user.phone_number}}
-                    {% comment %} <input type="text" class="form-control" placeholder="{{user.phone_number}}" aria-label="First name"> {% endcomment %}
+                    {{profile_form.phone_number}}
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <strong class="d-inline-block mr-3">Manage Address</strong>
                   <div class="col-12 mt-3">
-                    <input type="text" class="form-control" placeholder="Address 1">
+                    {{profile_form.address_line_1}}
                   </div>
                   <div class="col-12 mt-3">
-                    <input type="text" class="form-control" placeholder="Address 2">
+                    {{profile_form.address_line_2}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4 mt-3">
-                    <input type="text" class="form-control" placeholder="City">
+                    {{profile_form.city}}
                   </div>
                   <div class="col-4 mt-3">
-                    <input type="text" class="form-control" placeholder="State">
+                    {{profile_form.state}}
                   </div>
                   <div class="col-4 mt-3">
-                    <input type="text" class="form-control" placeholder="Country">
+                    {{profile_form.country}}
                   </div>
                 </div>
                 <div class="d-grid gap-2 mt-3">
@@ -69,9 +66,6 @@
           </div> <!-- row.// -->
           <br>
         </div> <!-- card-body .// -->
-        <div class="table-responsive">
-        
-        </div> <!-- table-responsive .end// -->
         </article> <!-- order-group.// --> 
     </main>
 </div> <!-- row.// -->
@@ -80,73 +74,6 @@
 
 </section>
 {% endblock content %}
-
-{% comment %} {% extends 'mainbase.html' %}
-{% block title %}Account{% endblock title %}
-{% block content %}
-<table class="table table-bordered">
-        <form  method="POST">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-                </div>
-            </div>
-            <form class="row g-3">
-                <div class="col-md-6">
-                  <label for="inputEmail4" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputPassword4" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="inputPassword4">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress2" class="form-label">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputCity" class="form-label">City</label>
-                  <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                  <label for="inputState" class="form-label">State</label>
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="col-md-2">
-                  <label for="inputZip" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                      Check me out
-                    </label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
-              </form>
-            <div class="button input-box">
-                <input type="submit" value="Update Profile">
-            </div> 
-        </form>
-</table>
-
-
-{% endblock content %} {% endcomment %}
 
 
 

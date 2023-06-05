@@ -164,3 +164,5 @@ EMAIL_HOST_PASSWORD = 'mlpgstyskwwaduvl' #App Pass
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+
+# SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'/

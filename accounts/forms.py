@@ -80,24 +80,37 @@ class SignUpForm(UserCreationForm):
     
     
 
-class UserForm(UserCreationForm):
-
+class UserForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('first_name','last_name','phone_number')
+        fields = ('first_name','last_name')
         
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         
+        self.fields['first_name'].widget.attrs["placeholder"] = "First Name"
+        self.fields['last_name'].widget.attrs["placeholder"] = "Last Name"
         for field in self.fields:
-            self.fields[field].widget.attrs["class"] = "form-control"
+            self.fields[field].widget.attrs["class"] = "form-control bg-dark text-white"
+            self.fields[field].widget.attrs["style"] = "border-color: #A32CC4"
         
-class UserProfileForm(UserChangeForm):
+class UserProfileForm(forms.ModelForm):
+    
+    profile_picture = forms.ImageField(required=False,error_messages={'invalid':('Image Files Only')},widget = forms.FileInput)
+    
     class Meta:
         model = UserProfile
-        fields = ('address_line_1','address_line_2','city','state','country','profile_picture')
+        fields = ('address_line_1','address_line_2','phone_number','city','state','country','profile_picture')
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['address_line_1'].widget.attrs["placeholder"] = "Address Line 1"
+        self.fields['address_line_2'].widget.attrs["placeholder"] = "Address Line 2"
+        self.fields['phone_number'].widget.attrs["placeholder"] = "Phone Number"
+        self.fields['city'].widget.attrs["placeholder"] = "City"
+        self.fields['state'].widget.attrs["placeholder"] = "State"
+        self.fields['country'].widget.attrs["placeholder"] = "Country"
+        
         for field in self.fields:
-            self.fields[field].widget.attrs["class"] = "form-control"
+            self.fields[field].widget.attrs["class"] = "form-control bg-dark text-white"
+            self.fields[field].widget.attrs["style"] = "border-color: #A32CC4"

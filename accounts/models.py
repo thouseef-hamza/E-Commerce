@@ -44,7 +44,6 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
-    phone_number = models.CharField(max_length=13)
     email = models.EmailField(max_length=100, unique=True)
 
     # required
@@ -74,8 +73,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account,on_delete=models.CASCADE)
     address_line_1 = models.CharField(blank=True,max_length=200)
     address_line_2 = models.CharField(blank=True,max_length=200)
-    mobile_number = models.CharField(blank=True,max_length=13)
     profile_picture = models.ImageField(blank=True,upload_to='userprofile') 
+    phone_number = models.CharField(blank=True,max_length=13)
     city = models.CharField(blank=True,max_length=20)
     state = models.CharField(blank=True,max_length=20)
     country = models.CharField(blank=True,max_length=20)

@@ -1,51 +1,52 @@
 {% extends 'products/base.html' %}
+{% block title %}GamePy - Checkout{% endblock title %}
 {% block content %}
 <div class="container-fluid">
         <div class="row">
             <aside class="col-lg-6">
-                <div style="border-radius:0px;" class="card"> 
-                   <div class="card-body">
-                     <h4 class="card-title ms-mt-2">Billing Address</h4>
+                <div style="border-radius:0px;" class="card bg-dark"> 
+                   <div class="card-body bg-dark">
+                     <h4 class="card-title ms-mt-2 text-muted">Billing Address</h4>
                      <form action="{% url 'place_order' %}" method="POST">
                         {% csrf_token %}
                         <div class="row mt-3">
                             <div class="col">
                               <!-- <label class="text ms-1 mb-1"for=""> <strong> First Name</strong></label> -->
-                              <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                              <input type="text" name="first_name" class="form-control bg-dark" placeholder="First Name" style="border-color:#a32cc4;" required>
                             </div>
                             <div class="col">
-                              <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col">
-                              <input type="email" name="email" class="form-control" placeholder="Enter Your Email" required>
-                            </div>
-                            <div class="col">
-                              <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                              <input type="text" name="last_name" class="form-control bg-dark" placeholder="Last Name" style="border-color:#a32cc4;" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                              <input type="text" name="address_line_1" class="form-control" placeholder="Address Line 1" required>
+                              <input type="email" name="email" class="form-control bg-dark" placeholder="Enter Your Email" style="border-color:#a32cc4;" required>
                             </div>
                             <div class="col">
-                              <input type="text" name="address_line_2" class="form-control" placeholder="Address Line 2">
+                              <input type="text" name="phone" class="form-control bg-dark" placeholder="Phone Number" style="border-color:#a32cc4;" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                              <input type="text" name="city" class="form-control" placeholder="City" required>
+                              <input type="text" name="address_line_1" class="form-control bg-dark" placeholder="Address Line 1" style="border-color:#a32cc4;" required>
                             </div>
                             <div class="col">
-                              <input type="text" name="state" class="form-control" placeholder="State" required>
+                              <input type="text" name="address_line_2" class="form-control bg-dark" placeholder="Address Line 2" style="border-color:#a32cc4;">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                              <input type="text" name="city" class="form-control bg-dark" placeholder="City" style="border-color:#a32cc4;" required>
                             </div>
                             <div class="col">
-                                <input type="text" name="country" class="form-control" placeholder="Country" required>
+                              <input type="text" name="state" class="form-control bg-dark" placeholder="State" style="border-color:#a32cc4;" required>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="country" class="form-control bg-dark" placeholder="Country" style="border-color:#a32cc4;" required>
                             </div>
                         </div>
                         <div class="row m-1 mt-4" >
-                            <textarea name="order_note" rows="3" placeholder="Order Note" class="form-control"></textarea>
+                            <textarea name="order_note" rows="3" placeholder="Order Note" class="form-control bg-dark" style="border-color:#a32cc4;"></textarea>
                         </div>
                    </div> 
                 </div>
@@ -60,9 +61,9 @@
                         </form>
                     </div>
                 </div> {% endcomment %}
-                <div class="card" style="border-radius:0px;">
-                    <div class="card-body">
-                        <div class="table-responsive">
+                <div class="card bg-dark" style="border-radius:0px;">
+                    <div class="card-body bg-dark">
+                        <div class="table-responsive bg-dark">
                             <table class="table table-borderless table-shopping-cart">
                                 <thead class="text-muted">
                                     <tr class="small text-uppercase">
@@ -78,18 +79,18 @@
                                         <td>
                                             <figure class="itemside align-items-center">
                                                 <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src="{{ cart_item.product.images.url}}" class="img-sm"></a></div>
-                                                <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-dark" data-abc="true">{{ cart_item.product.product_name }}</a>
+                                                <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-white" data-abc="true">{{ cart_item.product.product_name }}</a>
                                                     {% comment %} <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p> {% endcomment %}
                                                 </figcaption>
                                             </figure>
                                         </td>
                                         <td> 
-                                            <div class="d-grid justcol"> 
+                                            <div class="d-grid justcol text-white"> 
                                                 <label for="">{{cart_item.quantity}}</label>
                                             </div>
                                         </td> 
                                         <td>
-                                            <div class="price-wrap"> <var class="price">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
+                                            <div class="price-wrap"> <var class="price text-white">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
                                         </td>
                                         {% comment %} <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td> {% endcomment %}
                                     </tr>
@@ -99,7 +100,6 @@
                         </div>
                         <div class="d-grid gap-2">  
                             <button type="submit" name="submit"  class="btn text-white"  style="border-radius:0px;background-color:#A32CC4">Place Order</button>
-                            <a href="{% url 'homePage' %}" class="btn text-white" type="button" style="border-radius:0px;background-color:#A32CC4">Continue Shopping</a>
                         </div> 
                         </form>
                     </div>

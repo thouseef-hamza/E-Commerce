@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% load static %}
+{% block title %}Game Py - Cart{% endblock title %}
 {% block content %}
 <div class="container-fluid">
 {% if not cart_items %}  
@@ -23,8 +24,8 @@
     {% else %}
     <div class="row">
         <aside class="col-lg-9">
-            <div style="border-radius:0px;" class="card"> 
-                <div class="table-responsive">
+            <div style="border-radius:0px;" class="card bg-dark"> 
+                <div class="table-responsive bg-dark">
                     <table class="table table-borderless table-shopping-cart">
                         <thead class="text-muted">
                             <tr class="small text-uppercase">
@@ -40,8 +41,7 @@
                                 <td>
                                     <figure class="itemside align-items-center">
                                         <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src={{ cart_item.product.images.url }} class="img-sm"></a></div>
-                                        <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-dark" data-abc="true">{{ cart_item.product.product_name }}</a>
-                                            {% comment %} <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p> {% endcomment %}
+                                        <figcaption class="info"><b> <a href="{{cart_item.product.get_url}}" class="title text-white" data-abc="true">{{ cart_item.product.product_name }}</a></b>
                                         </figcaption>
                                     </figure>
                                 </td>
@@ -49,17 +49,17 @@
                                     <div class="col"> 
                                         <div class="input-group input-spinner">
                                             <div class="input-group-prepend me-1 ">
-                                            <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-buy" type="button" id="button-plus"> <i class="fa fa-minus"></i></a>
+                                            <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-buy text-white" type="button" id="button-plus"> <i class="fa fa-minus"></i></a>
                                             </div>
-                                            <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
+                                            <input type="text" class="form-control bg-dark text-white"  value="{{ cart_item.quantity }}">
                                             <div class="input-group-append">
-                                            <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-buy" type="button" id="button-minus"> <i class="fa fa-plus"></i></a>
+                                            <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-buy text-white" type="button" id="button-minus"> <i class="fa fa-plus"></i></a>
                                             </div>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- col.// -->
                                 </td> 
                                 <td>
-                                    <div class="price-wrap"> <var class="price">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
+                                    <div class="price-wrap"> <var class="price text-white">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
                                 </td>
                                 <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-light" data-abc="true" onclick="return confirm('Are You Sure Want To Delete This Item?')"> Remove</a> </td>
                             </tr>
@@ -79,24 +79,24 @@
                     </form>
                 </div>
             </div> {% endcomment %}
-            <div class="card" style="border-radius:0px;">
-                <div class="card-body">
-                    <dl class="dlist-align">
+            <div class="card bg-dark" style="border-radius:0px;">
+                <div class="card-body bg-dark">
+                    <dl class="dlist-align text-white">
                         <dt>Total price: </dt>
-                        <dd class="text-right">&#8377; {{total}}</dd>
+                        <dd class="text-right text-white">&#8377; {{total}}</dd>
                     </dl>
-                    <dl class="dlist-align">
+                    <dl class="dlist-align text-white">
                         <dt>Tax:</dt>
                         <dd class="text-left text-danger ms-5">&#8377; {{tax}}</dd>
                     </dl>
-                    <hr/>
-                    <dl class="dlist-align">
+                    <hr class="text-white"/>
+                    <dl class="dlist-align text-white">
                         <dt>Total:</dt>
-                        <dd class="text-right text-dark b ms-4"><strong> &#8377; {{grand_total}}</strong></dd>
+                        <dd class="text-right text-white b ms-4"><strong> &#8377; {{grand_total}}</strong></dd>
                     </dl>
                     <div class="d-grid gap-2">
-                        <a href="{% url 'homePage' %}"><button class="btn me-md-2 text-white" type="button" style="border-radius:0px;background-color:#A32CC4">Continue Shopping</button></a>
-                        <a href="{% url 'checkout' %}"><button class="btn me-md-2 text-white" type="button" style="border-radius:0px;background-color:#A32CC4">Check Out</button></a>
+                        <button class="btn me-md-2 bg-dark" type="button" style="border:1px solid #a32cc4;"><a href="{% url 'homePage' %}" style="color:#a32cc4;">Continue Shopping</a></button>
+                        <button class="btn me-md-2 text-white" type="button" style="border:1px solid #a32cc4;"><a href="{% url 'checkout' %}" style="color:#a32cc4;">Check Out</a></button>
                     </div>
                 </div>
             </div>

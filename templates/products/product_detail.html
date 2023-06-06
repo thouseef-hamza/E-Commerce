@@ -1,14 +1,14 @@
 {% extends 'products/base.html' %}
 {% load static %}
-{% block title %}Product Details{% endblock title %}
+{% block title %}GamePy - Product Details{% endblock title %}
 {% block content %}    
 <hr/ class="text-white">
 <div class="card mb-3" style="background-color:#1d1d1d;border-radius:0px;">
     <div class="row g-0">
-      <div class="col-6">
+      <div class="col-4">
         <img src="{{ single_product.images.url }}" class="img-fluid" alt="...">
       </div>
-      <div class="col-6">
+      <div class="col-8">
         <div class="card-body">
           <h1 style="font-familt:arial-black" class="card-title text-white ms-4 mt-4">{{ single_product.product_name }}</h1>
           <div class="ms-4 text-white">

@@ -45,13 +45,13 @@
     </div>
     <div class="carousel-inner" style="max-height:41.2rem;">
       <div class="carousel-item active">
-        <img src="{% static 'assets/img/login-backImg.jpg' %}"  class="d-block w-100" alt="...">
+        <img src="{% static 'assets/img/carousel-4.jpg' %}"  class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="{% static 'assets/img/slideImg1.jpg' %}" class="d-block w-100" alt="...">
+        <img src="{% static 'assets/img/carousel-2.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="{% static 'assets/img/slideImg2.jpg' %}" class="d-block w-100" alt="...">
+        <img src="{% static 'assets/img/carousel-5.jpg' %}" class="d-block w-100" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -80,7 +80,7 @@
           <div class="card rounded" style="background-color:#1d1d1d;">
             <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="Product Images"></a>
               <div class="card-body">
-                <a href="{{ product.get_url }}"><h5 style="letter-spacing:2px" class="card-title text-white"><b>{{product.product_name }}</b></h5></a>
+                <a href="{{ product.get_url }}"><h5  class="card-title text-white text-truncate"><b>{{product.product_name }}</b></h5></a>
                 <h6 class="card-text text-white">&#8377; {{ product.price }}</h6>
                 <div class="text-white mb-3">
                   <i class="{% if product.averageReview < 0.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 1 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100"></i>

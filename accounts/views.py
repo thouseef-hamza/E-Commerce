@@ -8,6 +8,7 @@ from .forms import SignUpForm,UserForm,UserProfileForm
 from .models import Account,UserProfile
 from carts.models import Cart,CartItem
 from carts.views import _cart_id
+from orders.models import Order
 
 # 
 import requests
@@ -192,11 +193,15 @@ def resetPassword(request):
 @login_required(login_url='loginPage')
 def dashboard(request):
     user_profile = get_object_or_404(UserProfile,user=request.user)
+    orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id,is_ordered=True)
+    orders_count = orders.count()
     context={
         'user_profile':user_profile,
+        'orders_count':orders_count,
     }
     return render(request,'accounts/dashboard.html',context)
 
+@login_required(login_url='loginPage')
 def edit_profile(request):
     user_profile = get_object_or_404(UserProfile,user=request.user)
     if request.method == 'POST':
@@ -217,7 +222,7 @@ def edit_profile(request):
     }
     return render(request,'accounts/edit_profile.html',context)
 
-# @login_required(login_url='loginPage')
+@login_required(login_url='loginPage')
 def change_password(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']
@@ -239,3 +244,12 @@ def change_password(request):
         else:
             messages.error(request,"Password Didn't Matched")
     return render(request,'accounts/change_password.html')
+
+@login_required(login_url='loginPage')
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user,is_ordered=True).order_by('-created_at')
+    print(orders)
+    context = {
+        'orders' : orders
+    }
+    return render(request,'accounts/my_orders.html',context) 

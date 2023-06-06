@@ -21,8 +21,8 @@
     </div>    
     <br>
     <ul class="list-group"  style="border-radius:0px;">
-        <a class="list-group-item"  {% if '/dashboard/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white"  {% endif %} href="{% url 'dashboard' %}"> Dashboard</a>
-        <a class="list-group-item bg-dark" href="#"> My Orders </a>
+        <a class="list-group-item"  {% if '/accounts/' == request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white"  {% endif %} href="{% url 'dashboard' %}"> Dashboard</a>
+        <a class="list-group-item" {% if '/my_orders/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white" {% endif %}  href="{% url 'my_orders' %}"> My Orders </a>
         <a class="list-group-item" {% if '/edit_profile/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white" {% endif %}  href="{% url 'edit_profile' %}"> Edit Profile </a>
         <a class="list-group-item" {% if '/change_password/' in request.path %} style="background-color:#A32CC4;color:white" {% else %} style="background-color:#212529;color:white" {% endif %}  href="{% url 'change_password' %}"> Change Password </a>
     </ul>

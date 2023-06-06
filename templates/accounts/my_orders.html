@@ -1,0 +1,48 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<div class="container">
+    <div class="row">
+    {% include 'includes/dashboard_sidebar.html' %}
+    <main class="col-md-9">
+        <article class="card bg-dark">
+        <header class="card-header bg-dark text-white">
+            <strong class="d-inline-block mr-3">Your Order History</strong>
+        </header>
+        <div class="card-body">
+            <div class="row"> 
+                <div class="col-12">
+                    <table class="table table-dark table-hover"> 
+                        <thead>
+                            <tr>
+                              <th scope="col">Order #</th>
+                              <th scope="col">Billing Name</th>
+                              <th scope="col">Phone Number</th>
+                              <th scope="col">Order Total</th>
+                              <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         {% for order in orders %}   
+                            <tr>
+                              <th scope="row">{{order.order_number}}</th>
+                              <td>{{order.full_name}}</td>
+                              <td>{{order.phone}}</td>
+                              <td>$ {{order.order_total}}</td>
+                              <td>{{order.created_at}}</td>
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- row.// -->
+        </div> <!-- card-body .// -->
+        </article> <!-- order-group.// --> 
+    </main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+{% endblock content %} 

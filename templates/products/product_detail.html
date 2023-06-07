@@ -6,7 +6,7 @@
 <div class="card mb-3" style="background-color:#1d1d1d;border-radius:0px;">
     <div class="row g-0">
       <div class="col-4">
-        <img src="{{ single_product.images.url }}" class="img-fluid" alt="...">
+        <img src="{{ single_product.images.url }}" class="img-fluid" alt="Product Image">
       </div>
       <div class="col-8">
         <div class="card-body">
@@ -19,7 +19,7 @@
             <i class="{% if single_product.averageReview < 4.5 %} fa-regular fa-star {% elif single_product.averageReview >= 0.5 and single_product.averageReview < 5 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
             <span> &nbsp;{{single_product.countReview}}  reviews</span>
           </div> 
-          <p class="card-text"><h3 class="text-white ms-4"><bold>&#8377; {{ single_product.price }}</bold></h3></p>
+          <p class="card-text"><h3 class="text-white ms-4"><bold>&dollar; {{ single_product.price }}</bold></h3></p>
           {% comment %} <h6>Description</h6> {% endcomment %}
           <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>  
           {% comment %} <a href="./product-detail.html" class="btn  btn-primary ms-4"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i></a> {% endcomment %}
@@ -27,14 +27,39 @@
             <h5 class="text-danger ms-4">Out Of Stock</h5>
           {% else %}
             {% if in_cart %}
-              <div class="d-grid gap-2 ms-4 me-4">
-              <a href="#"  class="btn text-white btn-success" type="button">Added to Cart &nbsp;&nbsp; <i class="fa fa-check"></i></a>
-              <a href="{% url 'cart' %}" style="background-color:#A32CC4;" class="btn text-white" type="button">View Cart &nbsp;&nbsp; <i class="fa fa-eye"></i></a>
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <a href="#"  class="btn text-white btn-success w-100" type="button">Added to Cart &nbsp;&nbsp; <i class="fa fa-check"></i></a>
+                  </div>
+                  {% comment %} <div class="col-1">
+                  {% if user.is_authenticated %}
+                    <a href="#" style="background-color:#A32CC4;" class="btn text-white add-wishlist" data-product="{{single_product.id}}"  type="button"><i class="fa fa-heart"></i></a>
+                  {% else %}
+                    <a href="#" style="background-color:#A32CC4;" class="btn text-white disabled" type="button"><i class="fa fa-heart"></i></a>
+                  {% endif %}
+                 </div> {% endcomment %}
+                </div>
+                <div class="row mt-2">
+                  <div class="col">
+                    <a href="{% url 'cart' %}" style="background-color:#A32CC4;" class="btn text-white w-100" type="button">View Cart &nbsp;&nbsp; <i class="fa fa-eye"></i></a>
+                  </div>
+                </div>
               </div>
             {% else %}
-              <div class="d-grid gap-2 ms-4 me-4">
-                <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white" type="button">Add to Cart</a>
-                {% comment %} <a href="{% url 'checkout' %}" style="color:#A32CC4;border-color:#A32CC4;" class="btn mt-2" type="button">Buy Now</a> {% endcomment %}
+              <div class="container">
+                <div class="  row">
+                  <div class="col-12">
+                    <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white w-100" type="button">Add to Cart</a>
+                  </div>
+                  {% comment %} <div class="col-1">
+                  {% if user.is_authenticated %}
+                    <a href="#" style="background-color:#A32CC4;" class="btn text-white add-wishlist" data-product="{{single_product.id}}" type="button"><i class="fa fa-heart"></i></a>
+                  {% else %}
+                    <a href="#" style="background-color:#A32CC4;" class="btn text-white disabled" type="button"><i class="fa fa-heart"></i></a>
+                  {% endif %}
+                  </div> {% endcomment %}
+                </div>
               </div>
             {% endif %}
           {% endif %}
@@ -42,23 +67,6 @@
         </div>
       </div>
     </div>
-    {% comment %} <header class="section-heading ms-5 mt-5">
-      <h3 class="card-text text-white">Customer Reviews </h3>  
-    </header>
-    <br/>
-      <article class="box mb-3 ms-5 me-5" style="border:1px solid #1d1d1d">
-          <div class="icontext w-100">
-              <img src="{% static 'assets/img/backImg.jpg' %}" class="img-xs icon rounded-circle" style="width:3rem;height:3rem;"> <h6 class="mb-1 text-primary mt-4" style="display:inline;">Mike John </h6><span class="date text-muted float-md-right">24.04.2020 </span>  
-          </div> <!-- icontext.// -->
-          <div class="mt-3 ">
-              <p class="card-text text-white">
-                  Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquipfghjjjjjjjjjjjjjjjjjjjjjjjjjj
-              </p>	
-          </div>
-      </article> {% endcomment %}
-</div>
 <div class="card bg-dark text-white mt-3">
   <div class="card-body p-4">
         <h5>Write Your Reviews</h5>
@@ -85,11 +93,11 @@
         <textarea name="review" id="" rows="4" class="form-control bg-dark text-white "></textarea>
         <br/>
         {% if user.is_authenticated %}
-          {% comment %} {% if orderproduct %} {% endcomment %}
-            <input type="submit" value="Submit Review" class="form-control btn btn-primary">
-          {% comment %} {% else %} {% endcomment %}
-            {% comment %} <p>Product Can't Review Without Purchased</p> {% endcomment %}
-          {% comment %} {% endif %} {% endcomment %}
+          {% if orderproduct %}
+            <input type="submit" value="Submit Review" class="form-control btn text-white" style="background-color:#a32cc4;">
+          {% else %}
+            <p>Product Can't Review Without Purchased</p>
+          {% endif %}
         {% else %}
         <p>You Must Be Logged In To Post Review. <span><a class="text-info" href="{% url 'loginPage' %}">Login Now</a></span></p>
         {% endif %}
@@ -100,6 +108,7 @@
     </form>
   </div>
 </div>  
+{% if reviews %}
 <div class="card bg-dark text-white mt-3">
   <div class="card-body p-4">
     <h4 class="mb-0">Customer Reviews</h4>
@@ -116,9 +125,15 @@
     
 {% for review in reviews %}
     <div class="d-flex flex-start">
-      <img class="rounded-circle shadow-1-strong me-3"
-        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+      {% if user_profile.profile_picture %}
+        <img class="rounded-circle shadow-1-strong me-2"
+          src="{{user_profile.profile_picture.url}}" alt="avatar" width="60"
+          height="60" />
+      {% else %}
+        <img class="rounded-circle shadow-1-strong me-3"
+        src="{% static 'assets/img/profile-picture.png' %}" alt="avatar" width="60"
         height="60" />
+      {% endif %}
       <div>
         <h6 class="fw-bold mb-1">{{review.user.first_name|capfirst}} {{review.user.last_name|capfirst}}</h6>
         <div class="d-flex align-items-center mb-3">
@@ -149,4 +164,21 @@
 {% endfor %}        
   </div>
 </div>
+{% endif %}
+{% comment %} <script>
+  //Add Wishlist
+  $(document).on('click',".add-wishlist",function(){
+    var _pid=$(this).attr('data-product');
+    $.ajax({
+      url:"/add-wishlist",
+      data:{
+        product:_pid
+      },
+      dataType:'json',
+      success:function(response){
+        console.log(response);
+      }
+    });
+  })
+</script> {% endcomment %}
 {% endblock content %}

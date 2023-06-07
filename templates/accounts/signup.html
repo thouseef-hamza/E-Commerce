@@ -24,7 +24,7 @@
       <div class="form-content">
         <div class="login-form">
           <div class="title">Sign Up</div>
-          <form action="{% url 'signUpPage' %}" method='post'>
+          <form action="{% url 'signUpPage' %}" method='POST'>
             {% csrf_token %}
             {% include 'includes/formerror.html' %}
             <div class="input-boxes">

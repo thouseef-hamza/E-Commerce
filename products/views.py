@@ -3,14 +3,16 @@ from .models import Product
 from category.models import Category
 from carts.models import CartItem
 from carts.views import _cart_id
-from django.shortcuts import HttpResponse
 from products.models import Product
-from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import ReviewRating
+from .models import ReviewRating,Wishlist
 from .forms import ReviewForm
 from django.contrib import messages
 from orders.models import OrderProduct
+from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
+from accounts.models import UserProfile
 # Create your views here.
 
 def products(request,category_slug=None):
@@ -34,12 +36,17 @@ def products(request,category_slug=None):
     }
     return render(request,'products/products.html',context)
 
+@never_cache
 def product_detail(request,category_slug,product_slug):
+    
+    user_profile = get_object_or_404(UserProfile,user=request.user)
     try:
         single_product = Product.objects.get(category__slug=category_slug,slug=product_slug)
-        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request),product=single_product).exists()
+        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
+        
     except Exception as e:
         raise e
+    
     if request.user.is_authenticated:
         try:
             orderproduct = OrderProduct.objects.filter(user=request.user,product_id=single_product.id).exists()
@@ -55,6 +62,7 @@ def product_detail(request,category_slug,product_slug):
         'in_cart' : in_cart,
         'orderproduct' : orderproduct,
         'reviews':reviews,
+        'user_profile':user_profile,
     }
     return render(request,'products/product_detail.html',context)
 
@@ -92,5 +100,20 @@ def submit_review(request,product_id):
                 data.save()
                 messages.success(request,'Thank You! Your Review Have Been Submitted')
                 return redirect(url)
+            
+# def add_wishlist(request):
+#     pid=request.GET['product']
+#     product = Product.objects.get(pk=pid)
+#     data={}
+#     checkwishlist = Wishlist.objects.filter(product=product,user=request.user).count()
+#     if checkwishlist > 0:
+#         pass
+    
+#     wishlist = Wishlist.objects.create(
+#         product=product,
+#         user=request.user
+#     )
+#     return JsonResponse({'bool':True})
+    
             
                 

@@ -22,7 +22,7 @@
           <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="..."></a>
             <div class="card-body">
               <a href="{{ product.get_url }}"><h6 class="card-title text-white text-truncate"><b>{{ product.product_name }}</b></h6></a>
-              <p class="card-text text-white">&#8377; {{ product.price }}</p>
+              <p class="card-text text-white">&dollar; {{ product.price }}</p>
               <div class="text-white mb-3">
                 <i class="{% if product.averageReview < 0.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 1 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100"></i>
                 <i class="{% if product.averageReview < 1.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 2 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>

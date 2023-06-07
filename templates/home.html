@@ -81,7 +81,7 @@
             <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="Product Images"></a>
               <div class="card-body">
                 <a href="{{ product.get_url }}"><h5  class="card-title text-white text-truncate"><b>{{product.product_name }}</b></h5></a>
-                <h6 class="card-text text-white">&#8377; {{ product.price }}</h6>
+                <h6 class="card-text text-white">&dollar; {{ product.price }}</h6>
                 <div class="text-white mb-3">
                   <i class="{% if product.averageReview < 0.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 1 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100"></i>
                   <i class="{% if product.averageReview < 1.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 2 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
@@ -89,7 +89,6 @@
                   <i class="{% if product.averageReview < 3.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 4 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
                   <i class="{% if product.averageReview < 4.5 %} fa-regular fa-star {% elif product.averageReview >= 0.5 and product.averageReview < 5 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
                 </div> 
-                {% comment %} <a href="{% url 'add_cart' product.id %}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">Add to Cart</a> {% endcomment %}
                 <a href="{{ product.get_url }}" class="btn text-white d-flex justify-content-center" style="background-color:#A32CC4;">View Details</a>
               </div>
           </div>

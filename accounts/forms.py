@@ -1,10 +1,22 @@
 # Django
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django import forms
-
+from django.core.exceptions import ValidationError
 # Local Django
 from .models import Account,UserProfile
+import re
 
+def validate_username(username):
+    pattern = r'^[a-zA-Z0-9][a-zA-Z0-9_]*$'
+    if not re.match(pattern, username):
+        raise ValidationError(
+            ("Username must start with an alphabetical or numeric character and should not contain special characters."),
+            code='invalid_username'
+        )
+    if not re.search(r'\d', username):
+        raise ValidationError("Username must contain at least one digit.")
+    if not re.search(r'[A-Z]', username):
+        raise ValidationError("Username must contain at least one uppercase letter.")
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
@@ -29,14 +41,14 @@ class SignUpForm(UserCreationForm):
         ),
     )
     password1 = forms.CharField(
-        min_length=4,
+        min_length=8,
         max_length=16,
         widget=forms.PasswordInput(
             attrs={"placeholder": "Enter Your Password"}
         ),
     )
     password2 = forms.CharField(
-        min_length=4,
+        min_length=8,
         max_length=16,
         widget=forms.PasswordInput(
             attrs={"placeholder": "Confirm Your Password"}
@@ -54,23 +66,10 @@ class SignUpForm(UserCreationForm):
             "password2",
         )
 
-    # def clean_username(self):
-    #     username = self.cleaned_data.get("username")
-    #     if Account.objects.filter(username=username).exists():
-    #         if Account.objects.get(username=username).is_active == False:
-    #             return username
-    #         raise forms.ValidationError("This username is already taken.")
-    #     # elif not re.match('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$',username):
-    #     #     raise forms.ValidationError('Username Must Contains Alphabetics and Numerics')
-    #     return username
-
-    # def clean_email(self):
-    #     email = self.cleaned_data.get("email")
-    #     if Account.objects.filter(email=email).exists():
-    #         if Account.objects.get(email=email).is_active == False:
-    #             return email
-    #         raise forms.ValidationError("This email is already taken.")
-    #     return email
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        validate_username(username)
+        return username
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
@@ -101,6 +100,12 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('address_line_1','address_line_2','phone_number','city','state','country','profile_picture')
+        
+        def clean_phone_number(self):
+            phone_number = self.cleaned_data['phone_number']
+            if not str(phone_number).isdigit():
+                raise ValidationError("Phone number must contain only digits")
+            return phone_number
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

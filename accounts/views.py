@@ -20,6 +20,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -93,7 +94,7 @@ def signUpPage(request):
             send_email.send()
             # login(request,user)
             # messages.success(request, "Thank You For Registering With Us, We Have Sent You An Email \n Please Verify!")
-            return redirect("accounts/login/?command=verification&email=" + email)
+            return redirect("/accounts/login?command=verification&email=" + email)
     else:
         form = SignUpForm()
     context = {

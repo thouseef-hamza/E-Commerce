@@ -92,9 +92,11 @@ DATABASES = {
         'NAME': config('NAME'),
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
-        'HOST':config('HOST')
+        'HOST':config('HOST'),
+        'PORT':config('PORT'),
     }
 }
+print(DATABASES)
 
 
 
@@ -164,6 +166,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_BACKEND = config('EMAIL_BACKEND')
+
+
 
 
 # SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'/

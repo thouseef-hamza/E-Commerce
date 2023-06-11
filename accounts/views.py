@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-
+@never_cache
 def logInPage(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -57,9 +57,15 @@ def logInPage(request):
     else:
         return render(request, "accounts/login.html")
 
-
+@never_cache
 def signUpPage(request):
     if request.method == "POST":
+        email = request.POST['email']
+        try:
+            existing_user = Account.objects.get(email=email, is_active=False)
+            existing_user.delete()
+        except Account.DoesNotExist:
+            pass
         form = SignUpForm(request.POST)
         if form.is_valid():
             # Authentication And Login
@@ -75,6 +81,7 @@ def signUpPage(request):
                 email=email,
                 password=password,
             )
+            
             user.save()
 
             # USER ACTIVATION
@@ -193,6 +200,7 @@ def resetPassword(request):
 
 @login_required(login_url='loginPage')
 def dashboard(request):
+    print(request.user)
     user_profile = get_object_or_404(UserProfile,user=request.user)
     orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id,is_ordered=True)
     orders_count = orders.count()

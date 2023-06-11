@@ -1,5 +1,5 @@
 # Django
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError
 # Local Django
@@ -15,8 +15,7 @@ def validate_username(username):
         )
     if not re.search(r'\d', username):
         raise ValidationError("Username must contain at least one digit.")
-    if not re.search(r'[A-Z]', username):
-        raise ValidationError("Username must contain at least one uppercase letter.")
+
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(

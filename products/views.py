@@ -38,7 +38,6 @@ def products(request,category_slug=None):
 
 @never_cache
 def product_detail(request,category_slug,product_slug):
-    
     user_profile = get_object_or_404(UserProfile,user=request.user)
     try:
         single_product = Product.objects.get(category__slug=category_slug,slug=product_slug)

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_rename_app',
     'decouple',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +140,10 @@ USE_TZ = True
 import os
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-] 
+STATIC_ROOT = BASE_DIR /'static'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR,'static')
+# ] 
 
 # Media Files Configuration 
 MEDIA_URL = '/media/'
@@ -172,13 +176,12 @@ EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 # SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'/
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME')
-AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
-AWS_DEFAULT_ACL = config('AWS_DEFAULT_ACL')
-AWS_S3_VERITY =config('AWS_S3_VERITY')
-DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
-
+AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_SIGNATURE_NAME=config('AWS_S3_SIGNATURE_NAME')
+AWS_S3_REGION_NAME=config('AWS_S3_REGION_NAME')
+AWS_S3_FILE_OVERWRITE=False
+AWS_DEFAULT_ACL=None
+AWS_S3_VERITY=True
+DEFAULT_FILE_STORAGE=config('DEFAULT_FILE_STORAGE')

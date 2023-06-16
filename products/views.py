@@ -40,6 +40,10 @@ def products(request,category_slug=None):
 def product_detail(request,category_slug,product_slug):
     # user_profile = get_object_or_404(UserProfile,user=request.user)
     try:
+        user_profile = UserProfile.objects.filter(user=request.user).get()
+    except UserProfile.DoesNotExist:
+        user_profile = None
+    try:
         single_product = Product.objects.get(category__slug=category_slug,slug=product_slug)
         in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
         
@@ -61,7 +65,7 @@ def product_detail(request,category_slug,product_slug):
         'in_cart' : in_cart,
         'orderproduct' : orderproduct,
         'reviews':reviews,
-        # 'user_profile':user_profile,
+        'user_profile':user_profile,
     }
     return render(request,'products/product_detail.html',context)
 

@@ -95,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': config('ENGINE'),
         'NAME': config('NAME'),
-        'USER': config('USER'),
+        'USER': 'gamepy2',
         'PASSWORD': config('PASSWORD'),
         'HOST':config('HOST'),
         'PORT':config('PORT'),

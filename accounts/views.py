@@ -213,30 +213,59 @@ def dashboard(request):
     }
     return render(request,'accounts/dashboard.html',context)
 
+# @login_required(login_url='loginPage')
+# def edit_profile(request):
+#     # user_profile = get_object_or_404(UserProfile,user=request.user)
+#     try:
+#         user_profile = UserProfile.objects.filter(user=request.user).get()
+#     except UserProfile.DoesNotExist:
+#         user_profile = None
+#     if request.method == 'POST':
+#         user_form = UserForm(request.POST,instance=request.user)
+#         profile_form = UserProfileForm(request.POST,request.FILES,instance=user_profile)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             messages.success(request,'Your Profile Has Been Updated')
+#             return redirect('edit_profile')
+#     else:
+#         user_form = UserForm(instance=request.user)
+#         profile_form = UserProfileForm(instance=user_profile)
+#     context = {
+#         'user_form' : user_form ,
+#         'profile_form' : profile_form,
+#         'user_profile':user_profile,
+#     }
+#     return render(request,'accounts/edit_profile.html',context)
 @login_required(login_url='loginPage')
 def edit_profile(request):
-    # user_profile = get_object_or_404(UserProfile,user=request.user)
     try:
-        user_profile = UserProfile.objects.filter(user=request.user).get()
+        user_profile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
         user_profile = None
+
     if request.method == 'POST':
-        user_form = UserForm(request.POST,instance=request.user)
-        profile_form = UserProfileForm(request.POST,request.FILES,instance=user_profile)
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
+            if user_profile is None:
+                user_profile = profile_form.save(commit=False)
+                user_profile.user = request.user
             profile_form.save()
-            messages.success(request,'Your Profile Has Been Updated')
+            messages.success(request, 'Your Profile Has Been Updated')
             return redirect('edit_profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
+
     context = {
-        'user_form' : user_form ,
-        'profile_form' : profile_form,
-        'user_profile':user_profile,
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user_profile': user_profile,
     }
-    return render(request,'accounts/edit_profile.html',context)
+    return render(request, 'accounts/edit_profile.html', context)
+
 
 @login_required(login_url='loginPage')
 def change_password(request):

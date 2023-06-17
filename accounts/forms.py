@@ -100,11 +100,11 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('address_line_1','address_line_2','phone_number','city','state','country','profile_picture')
         
-        def clean_house_name(self):
-            house_name = self.cleaned_data['address_line_1']
-            if not house_name:
+        def clean_address_line_1(self):
+            address_line_1 = self.cleaned_data['address_line_1']
+            if not address_line_1:
                 raise forms.ValidationError('House name is required.')
-            return house_name
+            return address_line_1
 
         def clean_phone_number(self):
             phone_number = self.cleaned_data['phone_number']
@@ -121,10 +121,10 @@ class UserProfileForm(forms.ModelForm):
             return city
 
         def clean_district(self):
-            district = self.cleaned_data['state']
-            if not district:
+            state = self.cleaned_data['state']
+            if not state:
                 raise forms.ValidationError('District is required.')
-            return district
+            return state
 
         def clean_country(self):
             country = self.cleaned_data['country']

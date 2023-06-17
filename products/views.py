@@ -44,7 +44,7 @@ def product_detail(request,category_slug,product_slug):
         
     except Exception as e:
         raise e
-    
+    user_profile =  None
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
         try:

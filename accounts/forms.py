@@ -103,7 +103,7 @@ class UserProfileForm(forms.ModelForm):
         def clean_address_line_1(self):
             address_line_1 = self.cleaned_data['address_line_1']
             if not address_line_1:
-                raise forms.ValidationError('House name is required.')
+                raise forms.ValidationError('Address is required.')
             return address_line_1
 
         def clean_phone_number(self):

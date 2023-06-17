@@ -218,7 +218,6 @@ def dashboard(request):
 @login_required(login_url='loginPage')
 def edit_profile(request):
     user_profile = get_object_or_404(UserProfile,user=request.user)
-    
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)

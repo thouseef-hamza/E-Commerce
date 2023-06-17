@@ -83,11 +83,16 @@ def signUpPage(request):
             )
             
             user.save()
+            
+            profile = UserProfile()
+            profile.user_id = user.id
+            profile.save()
 
             # USER ACTIVATION
             current_site = get_current_site(request)
             mail_subject = "Please Activate Your Account"
             message = render_to_string(
+                
                 "accounts/account_verification_email.html",
                 {
                     "user": user,
@@ -200,11 +205,8 @@ def resetPassword(request):
 
 @login_required(login_url='loginPage')
 def dashboard(request):
-    # user_profile = get_object_or_404(UserProfile,user=request.user)
-    try:
-        user_profile = UserProfile.objects.filter(user=request.user).get()
-    except UserProfile.DoesNotExist:
-        user_profile = None
+    user_profile = get_object_or_404(UserProfile,user=request.user)
+    
     orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id,is_ordered=True)
     orders_count = orders.count()
     context={
@@ -213,37 +215,10 @@ def dashboard(request):
     }
     return render(request,'accounts/dashboard.html',context)
 
-# @login_required(login_url='loginPage')
-# def edit_profile(request):
-#     # user_profile = get_object_or_404(UserProfile,user=request.user)
-#     try:
-#         user_profile = UserProfile.objects.filter(user=request.user).get()
-#     except UserProfile.DoesNotExist:
-#         user_profile = None
-#     if request.method == 'POST':
-#         user_form = UserForm(request.POST,instance=request.user)
-#         profile_form = UserProfileForm(request.POST,request.FILES,instance=user_profile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request,'Your Profile Has Been Updated')
-#             return redirect('edit_profile')
-#     else:
-#         user_form = UserForm(instance=request.user)
-#         profile_form = UserProfileForm(instance=user_profile)
-#     context = {
-#         'user_form' : user_form ,
-#         'profile_form' : profile_form,
-#         'user_profile':user_profile,
-#     }
-#     return render(request,'accounts/edit_profile.html',context)
 @login_required(login_url='loginPage')
 def edit_profile(request):
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        user_profile = None
-
+    user_profile = get_object_or_404(UserProfile,user=request.user)
+    
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
@@ -269,6 +244,8 @@ def edit_profile(request):
 
 @login_required(login_url='loginPage')
 def change_password(request):
+    user_profile = get_object_or_404(UserProfile,user=request.user)
+    
     if request.method == 'POST':
         current_password = request.POST['current_password']
         new_password = request.POST['new_password']
@@ -288,13 +265,19 @@ def change_password(request):
                 return redirect('change_password')
         else:
             messages.error(request,"Password Didn't Matched")
-    return render(request,'accounts/change_password.html')
+    context = {
+        "user_profile":user_profile,
+    }
+    return render(request,'accounts/change_password.html',context)
 
 @login_required(login_url='loginPage')
 def my_orders(request):
+    user_profile = get_object_or_404(UserProfile,user=request.user)
+    
     orders = Order.objects.filter(user=request.user,is_ordered=True).order_by('-created_at')
-    print(orders)
+    # print(orders)
     context = {
-        'orders' : orders
+        'orders' : orders,
+        'user_profile':user_profile,
     }
     return render(request,'accounts/my_orders.html',context) 

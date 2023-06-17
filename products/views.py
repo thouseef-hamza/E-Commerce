@@ -38,8 +38,6 @@ def products(request,category_slug=None):
 
 @never_cache
 def product_detail(request,category_slug,product_slug):
-    if request.user.is_authenticated:
-        user_profile = UserProfile.objects.get(user=request.user)
     try:
         single_product = Product.objects.get(category__slug=category_slug,slug=product_slug)
         in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
@@ -48,10 +46,11 @@ def product_detail(request,category_slug,product_slug):
         raise e
     
     if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
         try:
             orderproduct = OrderProduct.objects.filter(user=request.user,product_id=single_product.id).exists()
         except OrderProduct.DoesNotExist:
-            orderproduct = None
+            orderproduct = None    
     else:
         orderproduct = None
     

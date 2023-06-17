@@ -85,6 +85,8 @@ class UserProfile(models.Model):
     country = models.CharField(blank=True,max_length=20)
     
     
+    
+    
     def __str__(self):
         return self.user.first_name
     

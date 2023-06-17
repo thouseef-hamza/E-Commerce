@@ -100,11 +100,37 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('address_line_1','address_line_2','phone_number','city','state','country','profile_picture')
         
+        def clean_house_name(self):
+            house_name = self.cleaned_data['address_line_1']
+            if not house_name:
+                raise forms.ValidationError('House name is required.')
+            return house_name
+
         def clean_phone_number(self):
             phone_number = self.cleaned_data['phone_number']
-            if not str(phone_number).isdigit():
-                raise ValidationError("Phone number must contain only digits")
+            if not phone_number:
+                raise forms.ValidationError('Phone number is required.')
+            elif not str(phone_number).isdigit():
+                raise forms.ValidationError('Phone number must contain only digits.')
             return phone_number
+
+        def clean_city(self):
+            city = self.cleaned_data['city']
+            if not city:
+                raise forms.ValidationError('City is required.')
+            return city
+
+        def clean_district(self):
+            district = self.cleaned_data['state']
+            if not district:
+                raise forms.ValidationError('District is required.')
+            return district
+
+        def clean_country(self):
+            country = self.cleaned_data['country']
+            if not country:
+                raise forms.ValidationError('Country is required.')
+            return country
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

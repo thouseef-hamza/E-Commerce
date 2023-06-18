@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = ['13.53.47.141','gamepy.online']
+ALLOWED_HOSTS = ['13.53.47.141','gamepy.online','127.0.0.1','127.0.0.1:8000']
 
 
 # Application definition
@@ -142,14 +142,17 @@ USE_TZ = True
 import os
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR /'static'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR,'static')
 # ] 
 
 # Media Files Configuration 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
+
 
 
 # Default primary key field type

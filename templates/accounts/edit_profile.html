@@ -1,4 +1,5 @@
 {% extends 'products/base.html' %}
+{% load static %}
 {% block content %}
 <!-- ========================= SECTION CONTENT ========================= -->
 <div class="container">
@@ -10,8 +11,8 @@
           {% include 'includes/alert.html' %}
             <strong class="d-inline-block mr-3">Edit Your Profile</strong>
         </header>
-        {% include 'includes/formerror.html' %}
         <div class="card-body bg-dark text-white">
+          {% include 'includes/formerror.html' %}
           <div class="row"> 
               <form action="{% url 'edit_profile' %}"  method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

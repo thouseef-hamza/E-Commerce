@@ -3,15 +3,9 @@
     <div class="card bg-dark">
         <div class="card-body bg-dark">
           <div class="d-flex flex-start">
-            {% if user_profile.profile_picture %}
               <img class="rounded-circle shadow-1-strong me-2"
                 src="{{user_profile.profile_picture.url}}" alt="avatar" width="60"
                 height="60" />
-            {% else %}
-              <img class="rounded-circle shadow-1-strong me-3"
-              src="{% static 'assets/img/profile-picture.png' %}" alt="avatar" width="60"
-              height="60" />
-            {% endif %}
              <div class="d-grid gap-2 mt-2 justify-content-center">
               <span class="text text-white"><small>Hello,</small><span>  
               <h6 class="fw-bold mb-1 text-white d-grid d-md-flex justify-content-center">{{user.first_name|capfirst}} {{user.last_name|capfirst}}</h6>

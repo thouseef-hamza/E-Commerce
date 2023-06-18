@@ -86,6 +86,7 @@ def signUpPage(request):
             
             profile = UserProfile()
             profile.user_id = user.id
+            profile.profile_picture = 'userprofile_picture.png'
             profile.save()
 
             # USER ACTIVATION
@@ -229,6 +230,8 @@ def edit_profile(request):
             profile_form.save()
             messages.success(request, 'Your Profile Has Been Updated')
             return redirect('edit_profile')
+        else:
+            messages.error(request,'Enter Valid Input')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)

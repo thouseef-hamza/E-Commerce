@@ -100,37 +100,39 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('address_line_1','address_line_2','phone_number','city','state','country','profile_picture')
         
-        def clean_address_line_1(self):
-            address_line_1 = self.cleaned_data['address_line_1']
-            if not address_line_1:
-                raise forms.ValidationError('Address is required.')
-            return address_line_1
+    def clean_address_line_1(self):
+        address_line_1 = self.cleaned_data['address_line_1']
+        if not address_line_1:
+            raise forms.ValidationError('Address is required.')
+        return address_line_1
 
-        def clean_phone_number(self):
-            phone_number = self.cleaned_data['phone_number']
-            if not phone_number:
-                raise forms.ValidationError('Phone number is required.')
-            elif not str(phone_number).isdigit():
-                raise forms.ValidationError('Phone number must contain only digits.')
-            return phone_number
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        print(phone_number)
+        if not phone_number:
+            raise forms.ValidationError('Phone number is required.')
+        elif not str(phone_number).isdigit():
+            print('edrftgyhujik')
+            raise forms.ValidationError('Phone number must contain only digits.')
+        return phone_number
 
-        def clean_city(self):
-            city = self.cleaned_data['city']
-            if not city:
-                raise forms.ValidationError('City is required.')
-            return city
+    def clean_city(self):
+        city = self.cleaned_data['city']
+        if not city:
+            raise forms.ValidationError('City is required.')
+        return city
 
-        def clean_district(self):
-            state = self.cleaned_data['state']
-            if not state:
-                raise forms.ValidationError('District is required.')
-            return state
+    def clean_district(self):
+        state = self.cleaned_data['state']
+        if not state:
+            raise forms.ValidationError('District is required.')
+        return state
 
-        def clean_country(self):
-            country = self.cleaned_data['country']
-            if not country:
-                raise forms.ValidationError('Country is required.')
-            return country
+    def clean_country(self):
+        country = self.cleaned_data['country']
+        if not country:
+            raise forms.ValidationError('Country is required.')
+        return country
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

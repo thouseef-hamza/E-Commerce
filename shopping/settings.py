@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = ['13.53.47.141','gamepy.online','127.0.0.1','127.0.0.1:8000']
+ALLOWED_HOSTS = ['13.53.47.141','gamepy.online']
 
 
 # Application definition

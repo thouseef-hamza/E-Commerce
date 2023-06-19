@@ -1,7 +1,7 @@
 {
     "liveServer.settings.port": 5502,
     "python.analysis.typeCheckingMode": "off",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--line-length",

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
+from django.conf import settings
 # Local Django
 from .forms import SignUpForm, UserForm, UserProfileForm
 from .models import Account, UserProfile,Image
@@ -25,7 +25,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@never_cache
+
 def logInPage(request):
     image = Image.objects.first()
     if request.method == "POST":
@@ -98,7 +98,7 @@ def signUpPage(request):
 
             profile = UserProfile()
             profile.user_id = user.id
-            profile.profile_picture = "profile-picture.png"
+            profile.profile_picture = "userprofile/profile-picture.png"
             profile.save()
 
             # USER ACTIVATION

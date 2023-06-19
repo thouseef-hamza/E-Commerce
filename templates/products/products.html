@@ -13,7 +13,7 @@
     {% for product in products %}
     <div class="col-6 col-md-4 col-lg-2 ">
         <div class="card rounded" style="background-color:#1d1d1d;">
-          <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" width="auto" height="auto" class="card-img-top" alt="Product images {{i}}"></a>
+          <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" width="100%" height="100%" class="card-img-top" alt="Product images {{i}}"></a>
             <div class="card-body">
               <a href="{{ product.get_url }}"><h6 class="card-title text-white text-truncate"><b>{{ product.product_name }}</b></h6></a>
               <p class="card-text text-white">&dollar; {{ product.price }}</p>

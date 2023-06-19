@@ -6,7 +6,7 @@ from django.views.decorators.cache import never_cache
 
 # Local Django
 from .forms import SignUpForm, UserForm, UserProfileForm
-from .models import Account, UserProfile
+from .models import Account, UserProfile,Image
 from carts.models import Cart, CartItem
 from carts.views import _cart_id
 from orders.models import Order
@@ -27,6 +27,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @never_cache
 def logInPage(request):
+    image = Image.objects.first()
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
@@ -60,11 +61,16 @@ def logInPage(request):
             messages.error(request, "Invalid Login Credentials")
             return redirect("loginPage")
     else:
-        return render(request, "accounts/login.html")
+        context = {
+             'login_image': image.login_image if image else None,
+             'background_image': image.background_image if image else None,
+        }
+        return render(request, "accounts/login.html",context)
 
 
 @never_cache
 def signUpPage(request):
+    image = Image.objects.first()
     if request.method == "POST":
         email = request.POST["email"]
         try:
@@ -92,7 +98,7 @@ def signUpPage(request):
 
             profile = UserProfile()
             profile.user_id = user.id
-            profile.profile_picture = "userprofile_picture.png"
+            profile.profile_picture = "profile-picture.png"
             profile.save()
 
             # USER ACTIVATION
@@ -115,7 +121,11 @@ def signUpPage(request):
             return redirect("/accounts/login?command=verification&email=" + email)
     else:
         form = SignUpForm()
-    context = {"form": form}
+    context = {
+        "form": form,
+        'signup_image': image.signup_image if image else None,
+        'background_image': image.background_image if image else None,
+    }
     return render(request, "accounts/signup.html", context)
 
 
@@ -144,6 +154,7 @@ def activate(request, uidb64, token):
 
 
 def forgotPassword(request):
+    image = Image.objects.first()
     if request.method == "POST":
         email = request.POST["email"]
         if Account.objects.filter(email=email).exists():
@@ -170,7 +181,10 @@ def forgotPassword(request):
         else:
             messages.success(request, "Account Does not exist")
             return redirect("forgotPassword")
-    return render(request, "accounts/forgotPassword.html")
+    context={
+        'background_image': image.background_image if image else None,
+    }
+    return render(request, "accounts/forgotPassword.html",context)
 
 
 def resetPassword_validate(request, uidb64, token):
@@ -190,6 +204,7 @@ def resetPassword_validate(request, uidb64, token):
 
 
 def resetPassword(request):
+    image = Image.objects.first()
     if request.method == "POST":
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
@@ -205,7 +220,10 @@ def resetPassword(request):
             messages.error(request, "Password Do Not Match")
             return redirect("resetPassword")
     else:
-        return render(request, "accounts/resetPassword.html")
+        context={
+        'background_image': image.background_image if image else None,
+        }
+        return render(request, "accounts/resetPassword.html",context)
 
 
 @login_required(login_url="loginPage")

@@ -23,7 +23,7 @@ def validate_username(username):
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "First Name"})
+        widget=forms.TextInput(attrs={"placeholder": "First Name","autofocus":True})
     )
     last_name = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "Last Name"})

@@ -5,7 +5,7 @@
 <div class="container"> 
   <div class="cover">
      <div class="front">
-      <img src="{% static '/assets/img/login-backImg.jpg' %}" alt="Game Theme Image">
+      <img src="{{login_image.url}}" width="auto" height="auto" alt="Game Theme Image">
       <div class="text">
         <span class="text-1">Every new friend is a <br> new adventure</span>
         <span class="text-2">Let's get connected</span>
@@ -22,18 +22,16 @@
             <div class="container mx-auto alert alert-success" role="alert">
             Thank You For Registering With Us, We Have Sent You a Verification Email To Your Email Address <a href="https://mail.google.com/">{{ request.GET.email }}</a> <br>Please Verify!
             </div>
-            {% comment %} <br><br> 
-            Already Verified? <a href="{% url 'loginPage' %}">Login</a> {% endcomment %}
-            {% endif %}
+          {% endif %}
           <form action="{% url 'loginPage' %}" method="POST">
             {% csrf_token %}            
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="Enter Your Email" name="email" required>
+                <input type="email" placeholder="Enter Your Email" name="email" required autofocus>
               </div>
               <div class="input-box">
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-unlock"></i>
                 <input type="password" placeholder="Enter your password" name="password" required>
               </div>
               <div class="text"><a href="{% url 'forgotPassword' %}">Forgot password?</a></div>

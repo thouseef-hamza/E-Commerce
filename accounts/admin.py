@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 # Local Django
-from .models import Account, UserProfile
+from .models import Account, UserProfile,Image
 
 
 # Register your  models here.
@@ -41,3 +41,4 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Account, AccountAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(Image)

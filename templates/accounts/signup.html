@@ -5,7 +5,7 @@
 <div class="container"> 
   <div class="cover">
      <div class="front">
-      <img src="{% static '/assets/img/login-backImg.jpg' %}" alt="Game Theme Image">
+      <img src="{{signup_image.url}}" alt="Game Theme Image">
       <div class="text">
         <span class="text-1">Every new friend is a <br> new adventure</span>
         <span class="text-2">Let's get connected</span>
@@ -28,16 +28,16 @@
             {% csrf_token %}
             {% include 'includes/formerror.html' %}
             <div class="input-boxes">
-              <div class="input-box">
+              <div class="input-box" autofocus>
                 <i class="fas fa-user"></i>
                 {{form.first_name}}
               </div>
               <div class="input-box"> 
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user-tie"></i>
                 {{form.last_name}}
               </div>
               <div class="input-box">
-                <i class="fas fa-envelope"></i>
+                <i class="fas fa-user-circle"></i>
                 {{form.username}}
               </div>
               <div class="input-box">
@@ -50,7 +50,7 @@
                 {{form.password1}}
               </div>
               <div class="input-box">
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-user-lock"></i>
                 {{form.password2}}
               </div> 
               <div class="button input-box">

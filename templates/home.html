@@ -77,7 +77,7 @@
     {% for product in category.product_set.all|slice:":4" %}
       <div class="col-6 col-md-3 mt-2">
           <div class="card rounded" style="background-color:#1d1d1d;">
-            <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" class="card-img-top" alt="Product Images"></a>
+            <a href="{{ product.get_url }}"><img src="{{ product.images.url }}" width="auto" height="auto" class="card-img-top" alt="Product Images"></a>
               <div class="card-body">
                 <a href="{{ product.get_url }}"><h5  class="card-title text-white text-truncate"><b>{{product.product_name }}</b></h5></a>
                 <h6 class="card-text text-white">&dollar; {{ product.price }}</h6>

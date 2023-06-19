@@ -13,7 +13,7 @@ def homePage(request):
     for product in products:
         product_reviews = ReviewRating.objects.filter(product_id=product.id,status=True)
         reviews.extend(product_reviews)
-    print(reviews)
+
         
     context = {
         'categories' : categories,

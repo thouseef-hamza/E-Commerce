@@ -1,16 +1,17 @@
 # Django
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+
 # Local Django
-from .forms import SignUpForm,UserForm,UserProfileForm
-from .models import Account,UserProfile
-from carts.models import Cart,CartItem
+from .forms import SignUpForm, UserForm, UserProfileForm
+from .models import Account, UserProfile
+from carts.models import Cart, CartItem
 from carts.views import _cart_id
 from orders.models import Order
 
-# 
+#
 import requests
 
 # Email Verification
@@ -32,22 +33,26 @@ def logInPage(request):
         user = auth.authenticate(email=email, password=password)
         if user is not None:
             try:
-                cart = Cart.objects.get(cart_id=_cart_id(request)) 
+                cart = Cart.objects.get(cart_id=_cart_id(request))
                 is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
                 if is_cart_item_exists:
                     cart_item = CartItem.objects.filter(cart=cart)
                     for item in cart_item:
-                        item.user=user
+                        item.user = user
                         item.save()
             except:
-                pass     
-            auth.login(request, user) 
-            url = request.META.get('HTTP_REFERER') #------> http://127.0.0.1:8081/accounts/login/?next=/cart/checkout/
+                pass
+            auth.login(request, user)
+            url = request.META.get(
+                "HTTP_REFERER"
+            )  # ------> http://127.0.0.1:8081/accounts/login/?next=/cart/checkout/
             try:
-                query = requests.utils.urlparse(url).query #-----------> next=/cart/checkout/
-                params = dict(x.split('=') for x in query.split('&'))
-                if 'next' in params:
-                    nextPage=params['next']
+                query = requests.utils.urlparse(
+                    url
+                ).query  # -----------> next=/cart/checkout/
+                params = dict(x.split("=") for x in query.split("&"))
+                if "next" in params:
+                    nextPage = params["next"]
                     return redirect(nextPage)
             except:
                 return redirect("homePage")
@@ -57,14 +62,15 @@ def logInPage(request):
     else:
         return render(request, "accounts/login.html")
 
+
 @never_cache
 def signUpPage(request):
     if request.method == "POST":
-        email = request.POST['email']
+        email = request.POST["email"]
         try:
             existing_user = Account.objects.get(email=email, is_active=False)
             existing_user.delete()
-        except Account.DoesNotExist:
+        except:
             pass
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -81,19 +87,18 @@ def signUpPage(request):
                 email=email,
                 password=password,
             )
-            
+
             user.save()
-            
+
             profile = UserProfile()
             profile.user_id = user.id
-            profile.profile_picture = 'userprofile_picture.png'
+            profile.profile_picture = "userprofile_picture.png"
             profile.save()
 
             # USER ACTIVATION
             current_site = get_current_site(request)
             mail_subject = "Please Activate Your Account"
             message = render_to_string(
-                
                 "accounts/account_verification_email.html",
                 {
                     "user": user,
@@ -110,9 +115,7 @@ def signUpPage(request):
             return redirect("/accounts/login?command=verification&email=" + email)
     else:
         form = SignUpForm()
-    context = {
-        'form':form
-    }
+    context = {"form": form}
     return render(request, "accounts/signup.html", context)
 
 
@@ -204,82 +207,90 @@ def resetPassword(request):
     else:
         return render(request, "accounts/resetPassword.html")
 
-@login_required(login_url='loginPage')
-def dashboard(request):
-    user_profile = get_object_or_404(UserProfile,user=request.user)
-    
-    orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id,is_ordered=True)
-    orders_count = orders.count()
-    context={
-        'user_profile':user_profile,
-        'orders_count':orders_count,
-    }
-    return render(request,'accounts/dashboard.html',context)
 
-@login_required(login_url='loginPage')
+@login_required(login_url="loginPage")
+def dashboard(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    orders = Order.objects.order_by("-created_at").filter(
+        user_id=request.user.id, is_ordered=True
+    )
+    orders_count = orders.count()
+    context = {
+        "user_profile": user_profile,
+        "orders_count": orders_count,
+    }
+    return render(request, "accounts/dashboard.html", context)
+
+
+@login_required(login_url="loginPage")
 def edit_profile(request):
-    user_profile = get_object_or_404(UserProfile,user=request.user)
-    if request.method == 'POST':
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == "POST":
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        profile_form = UserProfileForm(
+            request.POST, request.FILES, instance=user_profile
+        )
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             if user_profile is None:
                 user_profile = profile_form.save(commit=False)
                 user_profile.user = request.user
             profile_form.save()
-            messages.success(request, 'Your Profile Has Been Updated')
-            return redirect('edit_profile')
+            messages.success(request, "Your Profile Has Been Updated")
+            return redirect("edit_profile")
         else:
-            messages.error(request,'Enter Valid Input')
+            messages.error(request, "Enter Valid Input")
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
 
     context = {
-        'user_form': user_form,
-        'profile_form': profile_form,
-        'user_profile': user_profile,
+        "user_form": user_form,
+        "profile_form": profile_form,
+        "user_profile": user_profile,
     }
-    return render(request, 'accounts/edit_profile.html', context)
+    return render(request, "accounts/edit_profile.html", context)
 
 
-@login_required(login_url='loginPage')
+@login_required(login_url="loginPage")
 def change_password(request):
-    user_profile = get_object_or_404(UserProfile,user=request.user)
-    
-    if request.method == 'POST':
-        current_password = request.POST['current_password']
-        new_password = request.POST['new_password']
-        confirm_password = request.POST['confirm_password']
-        
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    if request.method == "POST":
+        current_password = request.POST["current_password"]
+        new_password = request.POST["new_password"]
+        confirm_password = request.POST["confirm_password"]
+
         user = Account.objects.get(username__exact=request.user.username)
-        
+
         if new_password == confirm_password:
-            success=user.check_password(current_password)
+            success = user.check_password(current_password)
             if success:
                 user.set_password(new_password)
                 user.save()
-                messages.success(request,'Password Update Successfully')
-                return redirect('change_password')
+                messages.success(request, "Password Update Successfully")
+                return redirect("change_password")
             else:
-                messages.error(request,'Please Enter Valid Current Password')
-                return redirect('change_password')
+                messages.error(request, "Please Enter Valid Current Password")
+                return redirect("change_password")
         else:
-            messages.error(request,"Password Didn't Matched")
+            messages.error(request, "Password Didn't Matched")
     context = {
-        "user_profile":user_profile,
+        "user_profile": user_profile,
     }
-    return render(request,'accounts/change_password.html',context)
+    return render(request, "accounts/change_password.html", context)
 
-@login_required(login_url='loginPage')
+
+@login_required(login_url="loginPage")
 def my_orders(request):
-    user_profile = get_object_or_404(UserProfile,user=request.user)
-    
-    orders = Order.objects.filter(user=request.user,is_ordered=True).order_by('-created_at')
-    # print(orders)
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by(
+        "-created_at"
+    )
     context = {
-        'orders' : orders,
-        'user_profile':user_profile,
+        "orders": orders,
+        "user_profile": user_profile,
     }
-    return render(request,'accounts/my_orders.html',context) 
+    return render(request, "accounts/my_orders.html", context)

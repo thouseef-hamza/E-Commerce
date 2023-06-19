@@ -19,7 +19,7 @@
             <i class="{% if single_product.averageReview < 4.5 %} fa-regular fa-star {% elif single_product.averageReview >= 0.5 and single_product.averageReview < 5 %} fa-solid fa-star-half-stroke {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
             <span> &nbsp;{{single_product.countReview}}  reviews</span>
           </div> 
-          <p class="card-text"><h3 class="text-white ms-4"><bold>&dollar; {{ single_product.price }}</bold></h3></p>
+          <p class="card-text"><h3 class="text-white ms-4"><b>&dollar; {{ single_product.price }}</b></h3></p>
           {% comment %} <h6>Description</h6> {% endcomment %}
           <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>  
           {% comment %} <a href="./product-detail.html" class="btn  btn-primary ms-4"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i></a> {% endcomment %}

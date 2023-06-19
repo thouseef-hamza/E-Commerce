@@ -90,7 +90,7 @@
                                             </div>
                                         </td> 
                                         <td>
-                                            <div class="price-wrap"> <var class="price text-white">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
+                                            <div class="price-wrap"> <var class="price text-white">&dollar; {{ cart_item.sub_total }}</var> <small class="text-muted">&dollar; {{ cart_item.product.price }} each</small> </div>
                                         </td>
                                         {% comment %} <td class="text-right d-none d-md-block"><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td> {% endcomment %}
                                     </tr>

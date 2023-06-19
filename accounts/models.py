@@ -12,7 +12,6 @@ class MyAccountManager(BaseUserManager):
 
         if not username:
             raise ValueError("User Must Have An Username")
-        
 
         user = self.model(
             email=self.normalize_email(email),
@@ -54,15 +53,14 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
-    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     objects = MyAccountManager()
-    
+
     def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
         return self.email
@@ -73,23 +71,20 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
-    
+
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(Account,on_delete=models.CASCADE)
-    address_line_1 = models.CharField(max_length=200,unique=False)
-    address_line_2 = models.CharField(max_length=200,unique=False)
-    profile_picture = models.ImageField(upload_to='userprofile') 
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    address_line_1 = models.CharField(max_length=200, unique=False)
+    address_line_2 = models.CharField(max_length=200, unique=False)
+    profile_picture = models.ImageField(upload_to="userprofile")
     phone_number = models.CharField(max_length=13)
-    city = models.CharField(max_length=20,unique=False)
-    state = models.CharField(max_length=20,unique=False)
-    country = models.CharField(max_length=20,unique=False)
-    
-    
-    
-    
+    city = models.CharField(max_length=20, unique=False)
+    state = models.CharField(max_length=20, unique=False)
+    country = models.CharField(max_length=20, unique=False)
+
     def __str__(self):
         return self.user.first_name
-    
+
     def full_address(self):
-        return f'{self.address_line_1}{self.address_line_2}'
-    
+        return f"{self.address_line_1}{self.address_line_2}"

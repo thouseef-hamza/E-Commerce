@@ -32,13 +32,6 @@
                   <div class="col-12">
                     <a href="#"  class="btn text-white btn-success w-100" type="button">Added to Cart &nbsp;&nbsp; <i class="fa fa-check"></i></a>
                   </div>
-                  {% comment %} <div class="col-1">
-                  {% if user.is_authenticated %}
-                    <a href="#" style="background-color:#A32CC4;" class="btn text-white add-wishlist" data-product="{{single_product.id}}"  type="button"><i class="fa fa-heart"></i></a>
-                  {% else %}
-                    <a href="#" style="background-color:#A32CC4;" class="btn text-white disabled" type="button"><i class="fa fa-heart"></i></a>
-                  {% endif %}
-                 </div> {% endcomment %}
                 </div>
                 <div class="row mt-2">
                   <div class="col">
@@ -52,14 +45,6 @@
                   <div class="col-12">
                     <a href="{% url 'add_cart' single_product.id %}" style="background-color:#A32CC4;" class="btn text-white w-100" type="button">Add to Cart</a>
                   </div>
-                  {% comment %} <div class="col-1">
-                  {% if user.is_authenticated %}
-                    <a href="#" style="background-color:#A32CC4;" class="btn text-white add-wishlist" data-product="{{single_product.id}}" type="button"><i class="fa fa-heart"></i></a>
-                  {% else %}
-                    <a href="#" style="background-color:#A32CC4;" class="btn text-white disabled" type="button"><i class="fa fa-heart"></i></a>
-                  {% endif %}
-                  </div> {% endcomment %}
-                </div>
               </div>
             {% endif %}
           {% endif %}

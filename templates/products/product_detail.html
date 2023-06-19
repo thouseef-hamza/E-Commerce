@@ -22,7 +22,6 @@
           <p class="card-text"><h3 class="text-white ms-4"><b>&dollar; {{ single_product.price }}</b></h3></p>
           {% comment %} <h6>Description</h6> {% endcomment %}
           <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>  
-          {% comment %} <a href="./product-detail.html" class="btn  btn-primary ms-4"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i></a> {% endcomment %}
           {% if single_product.stock <= 0 %}
             <h5 class="text-danger ms-4">Out Of Stock</h5>
           {% else %}
@@ -110,15 +109,9 @@
     
 {% for review in reviews %}
     <div class="d-flex flex-start">
-      {% if user_profile.profile_picture %}
-        <img class="rounded-circle shadow-1-strong me-2"
-          src="{{user_profile.profile_picture.url}}" alt="avatar" width="60"
-          height="60" />
-      {% else %}
-        <img class="rounded-circle shadow-1-strong me-3"
-        src="{% static 'assets/img/profile-picture.png' %}" alt="avatar" width="60"
+      <img class="rounded-circle shadow-1-strong me-2"
+        src="{{user_profile.profile_picture.url}}" alt="avatar" width="60"
         height="60" />
-      {% endif %}
       <div>
         <h6 class="fw-bold mb-1">{{review.user.first_name|capfirst}} {{review.user.last_name|capfirst}}</h6>
         <div class="d-flex align-items-center mb-3">
@@ -132,11 +125,7 @@
               <i class="{% if review.rating == 3.5 %} fa-solid fa-star-half-stroke {% elif review.rating < 4 %} fa-regular fa-star {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
               <i class="{% if review.rating == 4.5 %} fa-solid fa-star-half-stroke {% elif review.rating < 5 %} fa-regular fa-star {% else %} fa-solid fa-star {% endif %}" style="color: #ffe100;"></i>
             </span>
-            {% comment %} <span class="badge ms-2" style="background-color: #ffe100;">{{review.rating}}</span> {% endcomment %}
           </p>
-           {% comment %} <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a> {% endcomment %}
-          {% comment %} <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a> {% endcomment %}
-          {% comment %} <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a> {% endcomment %}
         </div>
         <h6>{{review.subject}}</h6>
         <p class="mb-0">
@@ -150,20 +139,4 @@
   </div>
 </div>
 {% endif %}
-{% comment %} <script>
-  //Add Wishlist
-  $(document).on('click',".add-wishlist",function(){
-    var _pid=$(this).attr('data-product');
-    $.ajax({
-      url:"/add-wishlist",
-      data:{
-        product:_pid
-      },
-      dataType:'json',
-      success:function(response){
-        console.log(response);
-      }
-    });
-  })
-</script> {% endcomment %}
 {% endblock content %}

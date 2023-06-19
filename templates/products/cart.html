@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body cart">
                     <div class="col-sm-12 empty-cart-cls text-center">
-                        <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                        <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3" alt="Cart Empty Image">
                         <h3 class="text-white"><strong>Your Cart is Empty</strong></h3>
                         <h4 class="text-white">Add something to make me happy :)</h4>
                         <a href="{% url 'homePage' %}" style="color:#A32CC4;border-color:#A32CC4;" class="btn cart-btn-transform m-3" data-abc="true">continue shopping</a>
@@ -61,7 +61,7 @@
                                 <td>
                                     <div class="price-wrap"> <var class="price text-white">&dollar; {{ cart_item.sub_total }}</var> <small class="text-muted">&dollar; {{ cart_item.product.price }} each</small> </div>
                                 </td>
-                                <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-light" data-abc="true" onclick="return confirm('Are You Sure Want To Delete This Item?')"> Remove</a> </td>
+                                <td class="text-right d-none d-md-block"><a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-light" data-abc="true" onclick="return confirm('Are You Sure Want To Delete This Item?')"> Remove</a> </td>
                             </tr>
                         </tbody>
                         {% endfor %}
@@ -70,15 +70,6 @@
             </div>
         </aside>
         <aside class="col-lg-3">
-            {% comment %} <div class="card mb-3" style="border-radius:0px;">
-                <div class="card-body">
-                    <form>
-                        <div class="form-group"> <label>Have coupon?</label>
-                            <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
-                        </div>
-                    </form>
-                </div>
-            </div> {% endcomment %}
             <div class="card bg-dark" style="border-radius:0px;">
                 <div class="card-body bg-dark">
                     <dl class="dlist-align text-white">

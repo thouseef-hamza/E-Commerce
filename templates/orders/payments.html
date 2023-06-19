@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>
                                         <figure class="itemside align-items-center">
-                                            <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src="{{ cart_item.product.images.url}}" class="img-sm"></a></div>
+                                            <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src="{{ cart_item.product.images.url}}" class="img-sm" alt="Product Images"></a></div>
                                             <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-white" data-abc="true">{{ cart_item.product.product_name }}</a>
                                             </figcaption>
                                         </figure>
@@ -49,9 +49,8 @@
                                         </div>
                                     </td> 
                                     <td>
-                                        <div class="price-wrap"> <var class="price text-white">&#8377; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
+                                        <div class="price-wrap"> <var class="price text-white">&dollar; {{ cart_item.sub_total }}</var> <small class="text-muted">&#8377; {{ cart_item.product.price }} each</small> </div>
                                     </td>
-                                    {% comment %} <td class="text-right d-none d-md-block"><!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"><i class="fa fa-heart"></i>--><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td> {% endcomment %}
                                 </tr>
                             </tbody>
                             {% endfor %}
@@ -60,29 +59,20 @@
             </div>
         </aside>
         <aside class="col-lg-4">
-            {% comment %} <div class="card mb-3" style="border-radius:0px;">
-                <div class="card-body">
-                    <form>
-                        <div class="form-group"> <label>Have coupon?</label>
-                            <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
-                        </div>
-                    </form>
-                </div>
-            </div> {% endcomment %}
             <div class="card bg-dark" style="border-radius:0px;">
                 <div class="card-body">
                     <dl class="dlist-align text-white">
                         <dt>Total price: </dt>
-                        <dd class="text-right text-white">&#8377; {{total}}</dd>
+                        <dd class="text-right text-white">&dollar; {{total}}</dd>
                     </dl>
                     <dl class="dlist-align text-white">
                         <dt>Tax:</dt>
-                        <dd class="text-left text-danger ms-5">&#8377; {{tax}}</dd>
+                        <dd class="text-left text-danger ms-5">&dollar; {{tax}}</dd>
                     </dl>
                     <hr class="text-white"/>
                     <dl class="dlist-align text-white">
                         <dt>Total:</dt>
-                        <dd class="text-right text-white b ms-4"><strong class="text-success"> &#8377; {{grand_total}}</strong></dd>
+                        <dd class="text-right text-white b ms-4"><strong class="text-success"> &dollar; {{grand_total}}</strong></dd>
                     </dl>
                     <div id="paypal-button-container">
                       

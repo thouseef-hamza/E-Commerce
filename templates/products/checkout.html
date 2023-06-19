@@ -11,7 +11,6 @@
                         {% csrf_token %}
                         <div class="row mt-3">
                             <div class="col">
-                              <!-- <label class="text ms-1 mb-1"for=""> <strong> First Name</strong></label> -->
                               <input type="text" name="first_name" class="form-control bg-dark" placeholder="First Name" style="border-color:#a32cc4;" required>
                             </div>
                             <div class="col">
@@ -52,15 +51,6 @@
                 </div>
             </aside>
             <aside class="col-lg-6">
-                {% comment %} <div class="card mb-3" style="border-radius:0px;">
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group"> <label>Have coupon?</label>
-                                <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
-                            </div>
-                        </form>
-                    </div>
-                </div> {% endcomment %}
                 <div class="card bg-dark" style="border-radius:0px;">
                     <div class="card-body bg-dark">
                         <div class="table-responsive bg-dark">
@@ -80,7 +70,6 @@
                                             <figure class="itemside align-items-center">
                                                 <div class="aside"><a href="{{cart_item.product.get_url}}" ><img src="{{ cart_item.product.images.url}}" class="img-sm"></a></div>
                                                 <figcaption class="info"> <a href="{{cart_item.product.get_url}}" class="title text-white" data-abc="true">{{ cart_item.product.product_name }}</a>
-                                                    {% comment %} <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p> {% endcomment %}
                                                 </figcaption>
                                             </figure>
                                         </td>
@@ -92,7 +81,6 @@
                                         <td>
                                             <div class="price-wrap"> <var class="price text-white">&dollar; {{ cart_item.sub_total }}</var> <small class="text-muted">&dollar; {{ cart_item.product.price }} each</small> </div>
                                         </td>
-                                        {% comment %} <td class="text-right d-none d-md-block"><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light" data-abc="true"> Remove</a> </td> {% endcomment %}
                                     </tr>
                                 </tbody>
                                 {% endfor %}

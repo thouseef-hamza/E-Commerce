@@ -21,7 +21,7 @@
           </div> 
           <p class="card-text"><h3 class="text-white ms-4"><b>&dollar; {{ single_product.price }}</b></h3></p>
           {% comment %} <h6>Description</h6> {% endcomment %}
-          <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description }}</p>  
+          <p class="card-text text-muted ms-4" style="color:red;">{{ single_product.description|linebreaksbr }}</p>  
           {% if single_product.stock <= 0 %}
             <h5 class="text-danger ms-4">Out Of Stock</h5>
           {% else %}

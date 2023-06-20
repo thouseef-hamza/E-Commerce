@@ -45,7 +45,7 @@
     <div class="carousel-inner" style="max-height:41.2rem;">
       {% for carousel in carousels %}
       <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
-        <img src="{{carousel.images.url}}" class="d-block w-100" alt="Carousel Images {i}">
+        <img src="{{carousel.images.url}}" class="d-block w-100" width="100%" height="100%"alt="Carousel Images {{i}}">
         <div class="carousel-caption d-none d-md-block">
             <h1 class="animate__animated animate__fadeInDown">{{carousel.title}}</h1>
             <h3 class="animate__animated animate__fadeInDown">{{carousel.sub_title}}</h3>

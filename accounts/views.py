@@ -27,6 +27,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def logInPage(request):
+    if request.user.is_authenticated:
+        return redirect('homePage')
     image = Image.objects.first()
     if request.method == "POST":
         email = request.POST["email"]
